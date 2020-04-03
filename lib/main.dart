@@ -14,8 +14,13 @@ class MyApp extends StatelessWidget {
         }
       }, //Wrapping MaterialApp in GestureDetector here ensures that keyboard closes every time user clicks out of a TextFormField
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: LandingPage()
+        debugShowCheckedModeBanner: false,
+        home: LandingPage(),
+        theme: ThemeData.light().copyWith(
+          primaryColor: Colors.white,
+          scaffoldBackgroundColor: Colors.white,
+          accentColor: Colors.white,
+        ),
       ),
     );
   }
