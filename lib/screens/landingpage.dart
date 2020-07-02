@@ -19,7 +19,7 @@ class LandingPage extends StatelessWidget {
             Column(
               children: <Widget>[
                 Text(
-                  'Anton 3.0',
+                  'Anton',
                   style: TextStyle(fontWeight: FontWeight.w900, fontSize: 40),
                 ),
                 SizedBox(
@@ -49,14 +49,7 @@ class LandingPage extends StatelessWidget {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) {
-                          return SignUp();
-                        },
-                      ),
-                    );
+                    Navigator.of(context).pushNamed('/signin');
                   },
                   child: Container(
                     height: screenHeight * 0.075,
@@ -73,14 +66,7 @@ class LandingPage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) {
-                          return SignIn();
-                        },
-                      ),
-                    );
+                    Navigator.of(context).pushNamed('/signup');
                   },
                   child: Container(
                     height: screenHeight * 0.075,

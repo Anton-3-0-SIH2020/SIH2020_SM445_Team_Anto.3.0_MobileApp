@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './screens/landingpage.dart';
+import 'package:anton_sih_app/route_generator.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,7 +15,8 @@ class MyApp extends StatelessWidget {
       }, //Wrapping MaterialApp in GestureDetector here ensures that keyboard closes every time user clicks out of a TextFormField
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: LandingPage(),
+        initialRoute: '/',
+        onGenerateRoute: RouteGenerator.generateRoute,
         theme: ThemeData.light().copyWith(
           primaryColor: Colors.white,
           scaffoldBackgroundColor: Colors.white,
