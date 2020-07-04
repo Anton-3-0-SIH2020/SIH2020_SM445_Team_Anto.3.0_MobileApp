@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         onGenerateRoute: RouteGenerator.generateRoute,
         theme: ThemeData.light().copyWith(
-          primaryColor: Colors.white,
+          primaryColor: Color(0xFF4035EF),
           scaffoldBackgroundColor: Colors.white,
           accentColor: Colors.white,
         ),

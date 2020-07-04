@@ -126,7 +126,9 @@ class SignIn extends StatelessWidget {
                     height: 20,
                   ),
                   GestureDetector(
-                    onTap: null,
+                    onTap: () {
+                      Navigator.of(context).pushNamed('/homepage');
+                    },
                     child: Container(
                       height: screenHeight * 0.075,
                       width: screenWidth * 0.75,
