@@ -20,18 +20,18 @@ class LandingPage extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'Anton',
-                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 40),
+                  style: Theme.of(context).textTheme.headline1,
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 Text(
                   'Corporate Actions',
-                  style: TextStyle(fontSize: 15),
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
                   'Brought to you instantly ',
-                  style: TextStyle(fontSize: 15),
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
               ],
             ),

@@ -14,26 +14,40 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ANTON'),
+        title: Text(
+          'ANTON',
+          style: Theme.of(context).textTheme.caption,
+        ),
       ),
       body: tabs[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
+        unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.white,
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text('Home'),
+            title: Text(
+              'Home',
+              style: Theme.of(context).textTheme.subtitle2,
+            ),
             backgroundColor: Color(0xFF4035EF),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.star),
-            title: Text('Favourites'),
+            title: Text(
+              'Favourites',
+              style: Theme.of(context).textTheme.subtitle2,
+            ),
             backgroundColor: Color(0xFF4035EF),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            title: Text('Profile'),
+            title: Text(
+              'Profile',
+              style: Theme.of(context).textTheme.subtitle2,
+            ),
             backgroundColor: Color(0xFF4035EF),
           ),
         ],

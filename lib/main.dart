@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:anton_sih_app/route_generator.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -21,6 +23,38 @@ class MyApp extends StatelessWidget {
           primaryColor: Color(0xFF4035EF),
           scaffoldBackgroundColor: Colors.white,
           accentColor: Colors.white,
+          textTheme: TextTheme(
+            headline1: GoogleFonts.raleway(
+              color: Colors.black,
+              fontSize: 35,
+              fontWeight: FontWeight.w500,
+            ),
+            headline2: GoogleFonts.raleway(
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+            ),
+            headline3: GoogleFonts.raleway(
+              color: Colors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+            subtitle1: GoogleFonts.raleway(
+              color: Colors.grey,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+            subtitle2: GoogleFonts.raleway(
+              color: Colors.grey,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+            ),
+            caption: GoogleFonts.raleway(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
         ),
       ),
     );
