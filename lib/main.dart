@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
             ),
             headline3: GoogleFonts.raleway(
               color: Colors.black,
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: FontWeight.w500,
             ),
             subtitle1: GoogleFonts.raleway(
@@ -53,6 +53,11 @@ class MyApp extends StatelessWidget {
               color: Colors.white,
               fontSize: 20,
               fontWeight: FontWeight.w400,
+            ),
+            bodyText1: GoogleFonts.raleway(
+              color: Colors.grey,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),

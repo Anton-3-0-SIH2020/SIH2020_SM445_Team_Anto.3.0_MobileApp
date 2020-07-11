@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:anton_sih_app/screens/homepagetabs/hometab.dart';
+import '../screens/homepagetabs/profilepage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,7 +9,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
-  final tabs = [HomeTab(), null, null];
+  final tabs = [HomeTab(), null, ProfilePage()];
 
   @override
   Widget build(BuildContext context) {
