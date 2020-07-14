@@ -19,19 +19,19 @@ class LandingPage extends StatelessWidget {
             Column(
               children: <Widget>[
                 Text(
-                  'Anton 3.0',
-                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 40),
+                  'Anton',
+                  style: Theme.of(context).textTheme.headline1,
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 Text(
                   'Corporate Actions',
-                  style: TextStyle(fontSize: 15),
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
                   'Brought to you instantly ',
-                  style: TextStyle(fontSize: 15),
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
               ],
             ),
@@ -49,14 +49,7 @@ class LandingPage extends StatelessWidget {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) {
-                          return SignUp();
-                        },
-                      ),
-                    );
+                    Navigator.of(context).pushNamed('/signin');
                   },
                   child: Container(
                     height: screenHeight * 0.075,
@@ -73,14 +66,7 @@ class LandingPage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) {
-                          return SignIn();
-                        },
-                      ),
-                    );
+                    Navigator.of(context).pushNamed('/signup');
                   },
                   child: Container(
                     height: screenHeight * 0.075,
