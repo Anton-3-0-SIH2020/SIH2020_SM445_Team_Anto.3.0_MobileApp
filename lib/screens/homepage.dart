@@ -1,3 +1,5 @@
+import 'package:anton_sih_app/core/api/latest_corporate_action.dart';
+import 'package:anton_sih_app/models/bse_ca.dart';
 import 'package:flutter/material.dart';
 import 'package:anton_sih_app/screens/homepagetabs/hometab.dart';
 import '../screens/homepagetabs/profilepage.dart';
@@ -10,6 +12,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final tabs = [HomeTab(), null, ProfilePage()];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getCa();
+    super.initState();
+  }
+
+  void getCa() async {
+    BseLatestCa bseLatestCa = new BseLatestCa();
+    List<BseCa> bseCa = await bseLatestCa.getLatestCa();
+    print(bseCa[0].securityName);
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,13 +1,6 @@
+import 'package:anton_sih_app/core/api/latest_corporate_action.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
-
-import '../../models/corporateaction.dart';
 import '../../widgets/detailsdialog.dart';
-
-import 'package:http/http.dart' as http;
 
 class HomeTab extends StatefulWidget {
   @override
@@ -16,31 +9,12 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   DetailsDialog dialogs = new DetailsDialog();
-  Future<List<CorporateAction>> _getCorporateActions() async {
-    print("Inside Function");
-    var data = await http
-        .get('https://run.mocky.io/v3/af4047f0-2a67-416c-8124-3cc7ec706de2');
-    var api = "https://5f01862a07605200169e7069.mockapi.io/corporateactions";
-    var jsonData = json.decode(data.body);
-    print(jsonData);
-
-    List<CorporateAction> corporateAcions = [];
-    for (var u in jsonData) {
-      CorporateAction ca = CorporateAction(
-          u["secuarity_code"],
-          u["secuarity_name"],
-          u["ex_date"],
-          u["purpose"],
-          u["record_date"],
-          u["bc_start_date"],
-          u["bc_end_date"],
-          u["nd_start_date"],
-          u["nd_end_date"],
-          u["actual_payment_date"]);
-      corporateAcions.add(ca);
-    }
-    print(corporateAcions.length);
-    return corporateAcions;
+  BseLatestCa bseLatestCa;
+  @override
+  void initState() {
+    // TODO: implement initState
+    bseLatestCa = new BseLatestCa();
+    super.initState();
   }
 
   @override
@@ -55,7 +29,7 @@ class _HomeTabState extends State<HomeTab> {
         backgroundColor: Color(0xFF4035EF),
       ),
       body: FutureBuilder(
-        future: _getCorporateActions(),
+        future: bseLatestCa.getLatestCa(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
             return Container(
@@ -69,24 +43,8 @@ class _HomeTabState extends State<HomeTab> {
           }
           return ListView.builder(
             shrinkWrap: true,
-            // separatorBuilder: (context, index) => Divider(),
-            itemCount: snapshot.data.length + 1,
+            itemCount: snapshot.data.length,
             itemBuilder: (BuildContext context, int index) {
-              if (index == 0) {
-                return Container(
-                  height: 0.05 * screenHeight,
-                  width: screenWidth,
-                  color: Color(0xFFEEEEEE),
-                  child: Align(
-                    alignment: FractionalOffset.center,
-                    child: Text(
-                      'Corporate Actions',
-                      style: Theme.of(context).textTheme.headline3,
-                    ),
-                  ),
-                );
-              }
-              index = index - 1;
               return ListTile(
                 leading: Container(
                   height: 0.05 * screenHeight,
@@ -101,12 +59,11 @@ class _HomeTabState extends State<HomeTab> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      snapshot.data[index].security_name,
+                      snapshot.data[index].securityName,
                       style: Theme.of(context).textTheme.headline2,
                     ),
-                    Text(
-                        "Security Code: ${snapshot.data[index].security_code}"),
-                    Text("Ex-Date: ${snapshot.data[index].ex_date}"),
+                    Text("Security Code: ${snapshot.data[index].securityName}"),
+                    Text("Ex-Date: ${snapshot.data[index].exDate}"),
                     Text("Purpose: ${snapshot.data[index].purpose}"),
                     SizedBox(
                       height: 2,

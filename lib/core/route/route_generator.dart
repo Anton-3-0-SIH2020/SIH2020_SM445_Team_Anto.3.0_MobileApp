@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'screens/landingpage.dart';
-import 'screens/signin.dart';
-import 'screens/signup.dart';
+import '../../screens/landingpage.dart';
+import '../../screens/signin.dart';
+import '../../screens/signup.dart';
 import 'package:anton_sih_app/screens/homepage.dart';
-import 'package:anton_sih_app/models/corporateaction.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
-
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => LandingPage());
