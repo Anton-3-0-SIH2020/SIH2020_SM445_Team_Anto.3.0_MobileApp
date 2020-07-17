@@ -9,7 +9,6 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  DetailsDialog dialogs = new DetailsDialog();
   BseLatestCa bseLatestCa;
   @override
   void initState() {
@@ -87,7 +86,9 @@ class _HomeTabState extends State<HomeTab> {
                     ],
                   ),
                   onTap: () {
-                    dialogs.information(context, snapshot.data[index]);
+                    // dialogs.information(context, snapshot.data[index]);
+                    Navigator.of(context).pushNamed('/detailspage',
+                        arguments: snapshot.data[index]);
                   },
                 ),
               );

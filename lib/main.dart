@@ -59,6 +59,11 @@ class MyApp extends StatelessWidget {
               fontSize: 18,
               fontWeight: FontWeight.w500,
             ),
+            bodyText2: GoogleFonts.raleway(
+              color: Colors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
       ),
