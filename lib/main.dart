@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:anton_sih_app/route_generator.dart';
+import 'package:anton_sih_app/core/route/route_generator.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 

@@ -1,3 +1,5 @@
+import 'package:anton_sih_app/core/api/latest_corporate_action.dart';
+import 'package:anton_sih_app/models/bse_ca.dart';
 import 'package:flutter/material.dart';
 import 'package:anton_sih_app/screens/homepagetabs/hometab.dart';
 import '../screens/homepagetabs/profilepage.dart';
@@ -12,12 +14,37 @@ class _HomePageState extends State<HomePage> {
   final tabs = [HomeTab(), null, ProfilePage()];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Color(0xff24213F)),
+        elevation: 0,
+        backgroundColor: Color(0xffF3F5F7),
         title: Text(
           'ANTON',
-          style: Theme.of(context).textTheme.caption,
+          style: TextStyle(
+            color: Color(0xff24213F),
+          ),
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(10.0),
+          child: Theme(
+            data: Theme.of(context).copyWith(accentColor: Colors.white),
+            child: Opacity(
+              opacity: 0.4,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 15),
+                height: 0.5,
+                color: Color(0xff24213F),
+              ),
+            ),
+          ),
         ),
       ),
       body: tabs[_currentIndex],

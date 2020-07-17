@@ -1,9 +1,9 @@
+import 'package:anton_sih_app/models/bse_ca.dart';
 import 'package:flutter/material.dart';
-import 'package:anton_sih_app/models/corporateaction.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 class DetailsDialog {
-  information(BuildContext context, CorporateAction data) {
+  information(BuildContext context, BseCa data) {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
     return showDialog(
@@ -22,7 +22,7 @@ class DetailsDialog {
                   children: <Widget>[
                     Center(
                       child: Text(
-                        data.security_name,
+                        data.securityName,
                         style: Theme.of(context).textTheme.headline2,
                       ),
                     ),
@@ -30,15 +30,15 @@ class DetailsDialog {
                       height: 0.01 * screenHeight,
                     ),
                     Text(
-                      "Security Code: ${data.security_code}",
+                      "Security Code: ${data.securityCode}",
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Text(
-                      "Ex-Date: ${data.ex_date}",
+                      "Ex-Date: ${data.exDate}",
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Text(
-                      "Record Date: ${data.record_date}",
+                      "Record Date: ${data.recordDate}",
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Text(
@@ -46,23 +46,23 @@ class DetailsDialog {
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Text(
-                      "BC Start Date: ${data.bc_start_date}",
+                      "BC Start Date: ${data.bcStartDate}",
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Text(
-                      "BC End Date: ${data.bc_end_date}",
+                      "BC End Date: ${data.bcEndDate}",
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Text(
-                      "ND Start Date: ${data.nd_start_date}",
+                      "ND Start Date: ${data.ndStartDate}",
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Text(
-                      "ND End Date: ${data.nd_end_date}",
+                      "ND End Date: ${data.ndEndDate}",
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     AutoSizeText(
-                      "Actual Payment Date: ${data.actual_payment_date}",
+                      "Actual Payment Date: ${data.actualPaymentDate}",
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Center(
