@@ -16,23 +16,35 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     // TODO: implement initState
-    getCa();
     super.initState();
-  }
-
-  void getCa() async {
-    BseLatestCa bseLatestCa = new BseLatestCa();
-    List<BseCa> bseCa = await bseLatestCa.getLatestCa();
-    print(bseCa[0].securityName);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Color(0xff24213F)),
+        elevation: 0,
+        backgroundColor: Color(0xffF3F5F7),
         title: Text(
           'ANTON',
-          style: Theme.of(context).textTheme.caption,
+          style: TextStyle(
+            color: Color(0xff24213F),
+          ),
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(10.0),
+          child: Theme(
+            data: Theme.of(context).copyWith(accentColor: Colors.white),
+            child: Opacity(
+              opacity: 0.4,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 15),
+                height: 0.5,
+                color: Color(0xff24213F),
+              ),
+            ),
+          ),
         ),
       ),
       body: tabs[_currentIndex],

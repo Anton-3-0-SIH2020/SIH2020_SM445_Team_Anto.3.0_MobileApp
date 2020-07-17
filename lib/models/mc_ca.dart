@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class BseCa {
+class McCa {
   String companyName;
   String purpose;
   String anouncment;
@@ -11,7 +11,7 @@ class BseCa {
   String ndStartDate;
   String ndEndDate;
   String actualPaymentDate;
-  BseCa(
+  McCa(
       {@required this.actualPaymentDate,
       @required this.bcEndDate,
       @required this.bcStartDate,
