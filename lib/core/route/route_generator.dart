@@ -4,6 +4,8 @@ import '../../screens/landingpage.dart';
 import '../../screens/signin.dart';
 import '../../screens/signup.dart';
 import 'package:anton_sih_app/screens/homepage.dart';
+import 'package:anton_sih_app/screens/detailspage.dart';
+import 'package:anton_sih_app/models/bse_ca.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -17,6 +19,15 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SignUp());
       case '/homepage':
         return MaterialPageRoute(builder: (_) => HomePage());
+      case '/detailspage':
+        if (args is BseCa) {
+          return MaterialPageRoute(
+            builder: (_) => DetailsPage(
+              data: args,
+            ),
+          );
+        }
+        return _errorRoute();
       default:
         return _errorRoute();
     }
