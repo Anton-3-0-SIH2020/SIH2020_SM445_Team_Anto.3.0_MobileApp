@@ -38,6 +38,15 @@ dependencies:
   #Permissions Handler
   permission_handler: ^5.0.1+1
 
+  #Progress Indicator
+  step_progress_indicator: ^0.2.3+6
+
+  #Alert Dialogue
+  ndialog: ^2.1.0+6
+
+  #Toast
+  toast: ^0.1.5
+
 
 
 

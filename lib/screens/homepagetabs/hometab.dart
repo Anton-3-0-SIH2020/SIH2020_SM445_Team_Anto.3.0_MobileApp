@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:toast/toast.dart';
 import 'package:unicorndial/unicorndial.dart';
 
 class HomeTab extends StatefulWidget {
@@ -19,6 +21,7 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   final _debouncer = Debouncer(milliseconds: 200);
+  double downloadProgress = 0;
 
   //API CALLS
   BseLatestCa bseLatestCa;
@@ -123,7 +126,22 @@ class _HomeTabState extends State<HomeTab> {
                 onPressed: () {
                   downloadFilesCall.downloadFile(
                       Endpoints.baseUrl + Endpoints.downloadBsePdf,
-                      'bse_pdf.pdf');
+                      'bse_pdf.pdf', (value) {
+                    setState(() {
+                      downloadProgress = value;
+                    });
+                  }).then((value) {
+                    setState(() {
+                      downloadProgress = 0;
+                      Toast.show(
+                        "Downloaded Successfully",
+                        context,
+                        duration: Toast.LENGTH_LONG,
+                        gravity: Toast.BOTTOM,
+                        backgroundColor: Colors.green,
+                      );
+                    });
+                  });
                 },
               ),
             ),
@@ -138,7 +156,22 @@ class _HomeTabState extends State<HomeTab> {
                 onPressed: () {
                   downloadFilesCall.downloadFile(
                       Endpoints.baseUrl + Endpoints.downloadBseCsv,
-                      'bse_csv.csv');
+                      'bse_csv.csv', (value) {
+                    setState(() {
+                      downloadProgress = value;
+                    });
+                  }).then((value) {
+                    setState(() {
+                      downloadProgress = 0;
+                      Toast.show(
+                        "Downloaded Successfully",
+                        context,
+                        duration: Toast.LENGTH_LONG,
+                        gravity: Toast.BOTTOM,
+                        backgroundColor: Colors.green,
+                      );
+                    });
+                  });
                 },
               ),
             ),
@@ -153,7 +186,22 @@ class _HomeTabState extends State<HomeTab> {
                 onPressed: () {
                   downloadFilesCall.downloadFile(
                       Endpoints.baseUrl + Endpoints.downloadNsePdf,
-                      'nse_pdf.pdf');
+                      'nse_pdf.pdf', (value) {
+                    setState(() {
+                      downloadProgress = value;
+                    });
+                  }).then((value) {
+                    setState(() {
+                      downloadProgress = 0;
+                      Toast.show(
+                        "Downloaded Successfully",
+                        context,
+                        duration: Toast.LENGTH_LONG,
+                        gravity: Toast.BOTTOM,
+                        backgroundColor: Colors.green,
+                      );
+                    });
+                  });
                 },
               ),
             ),
@@ -168,7 +216,22 @@ class _HomeTabState extends State<HomeTab> {
                 onPressed: () {
                   downloadFilesCall.downloadFile(
                       Endpoints.baseUrl + Endpoints.downloadNseCsv,
-                      'nse_csv.csv');
+                      'nse_csv.csv', (value) {
+                    setState(() {
+                      downloadProgress = value;
+                    });
+                  }).then((value) {
+                    setState(() {
+                      downloadProgress = 0;
+                      Toast.show(
+                        "Downloaded Successfully",
+                        context,
+                        duration: Toast.LENGTH_LONG,
+                        gravity: Toast.BOTTOM,
+                        backgroundColor: Colors.green,
+                      );
+                    });
+                  });
                 },
               ),
             ),
@@ -182,8 +245,23 @@ class _HomeTabState extends State<HomeTab> {
                 child: Icon(Icons.picture_as_pdf),
                 onPressed: () {
                   downloadFilesCall.downloadFile(
-                      Endpoints.baseUrl + Endpoints.downloadMcPdf,
-                      'mc_pdf.pdf');
+                      Endpoints.baseUrl + Endpoints.downloadMcPdf, 'mc_pdf.pdf',
+                      (value) {
+                    setState(() {
+                      downloadProgress = value;
+                    });
+                  }).then((value) {
+                    setState(() {
+                      downloadProgress = 0;
+                      Toast.show(
+                        "Downloaded Successfully",
+                        context,
+                        duration: Toast.LENGTH_LONG,
+                        gravity: Toast.BOTTOM,
+                        backgroundColor: Colors.green,
+                      );
+                    });
+                  });
                 },
               ),
             ),
@@ -197,238 +275,185 @@ class _HomeTabState extends State<HomeTab> {
                 child: Icon(Icons.insert_drive_file),
                 onPressed: () {
                   downloadFilesCall.downloadFile(
-                      Endpoints.baseUrl + Endpoints.downloadMcCsv,
-                      'mc_csv.csv');
+                      Endpoints.baseUrl + Endpoints.downloadMcCsv, 'mc_csv.csv',
+                      (value) {
+                    setState(() {
+                      downloadProgress = value;
+                    });
+                  }).then((value) {
+                    setState(() {
+                      downloadProgress = 0;
+                      Toast.show(
+                        "Downloaded Successfully",
+                        context,
+                        duration: Toast.LENGTH_LONG,
+                        gravity: Toast.BOTTOM,
+                        backgroundColor: Colors.green,
+                      );
+                    });
+                  });
                 },
               ),
             ),
           ]),
-      body: Column(
+      body: Stack(
         children: [
-          Row(
+          Column(
             children: [
-              Expanded(
-                flex: 4,
-                child: Container(
-                  margin: EdgeInsets.only(left: 20, bottom: 15, top: 20),
-                  padding: EdgeInsets.only(
-                    left: 18,
-                    right: 8,
-                    top: 8,
-                    bottom: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15.5),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromRGBO(168, 192, 255, 0.16),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3), // changes position of shadow
+              Row(
+                children: [
+                  Expanded(
+                    flex: 4,
+                    child: Container(
+                      margin: EdgeInsets.only(left: 20, bottom: 15, top: 20),
+                      padding: EdgeInsets.only(
+                        left: 18,
+                        right: 8,
+                        top: 8,
+                        bottom: 8,
                       ),
-                    ],
-                  ),
-                  child: DropdownButton<String>(
-                    value: exchangeType,
-                    elevation: 16,
-                    underline: Container(height: 0),
-                    style: TextStyle(color: Colors.black45),
-                    icon: Icon(Icons.keyboard_arrow_down),
-                    onChanged: (String newValue) {
-                      setState(() {
-                        exchangeType = newValue;
-                      });
-                    },
-                    items: <String>['BSE', 'NSE', 'MC']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 8,
-                child: Container(
-                  margin:
-                      EdgeInsets.only(left: 15, right: 5, bottom: 15, top: 20),
-                  padding: EdgeInsets.only(
-                    left: 21.5,
-                    right: 8,
-                    top: 8,
-                    bottom: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15.5),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromRGBO(168, 192, 255, 0.16),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  //Search Bar
-                  child: TextFormField(
-                    onChanged: (value) async {
-                      //Filtering Content Logic
-                      List<BseCa> bseOriginalList = await bseList;
-                      List<NseCa> nseOriginalList = await nseList;
-                      List<McCa> mcOriginalList = await mcList;
-
-                      searchText = value;
-                      _debouncer.run(() {
-                        if (exchangeType == 'BSE') {
-                          setState(() {
-                            bseFilterList = bseOriginalList
-                                .where((f) => (f.securityName
-                                        .toLowerCase()
-                                        .contains(value.toLowerCase()) ||
-                                    f.purpose
-                                        .toLowerCase()
-                                        .contains(value.toLowerCase())))
-                                .toList();
-                          });
-                        } else if (exchangeType == 'NSE') {
-                          setState(() {
-                            nseFilterList = nseOriginalList
-                                .where((f) => (f.symbol
-                                        .toLowerCase()
-                                        .contains(value.toLowerCase()) ||
-                                    f.purpose
-                                        .toLowerCase()
-                                        .contains(value.toLowerCase())))
-                                .toList();
-                          });
-                        } else {
-                          setState(() {
-                            mcFilterList = mcOriginalList
-                                .where((f) => (f.companyName
-                                        .toLowerCase()
-                                        .contains(value.toLowerCase()) ||
-                                    f.purpose
-                                        .toLowerCase()
-                                        .contains(value.toLowerCase())))
-                                .toList();
-                          });
-                        }
-                      });
-                      print(searchText);
-                    },
-                    cursorColor: Color(0xff24213f),
-                    style: TextStyle(
-                      color: Color(0xff24213f),
-                    ),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      //"SEARCH"
-                      hintText: 'Search', //'Search for a topic',
-                      suffixIcon: Icon(
-                        Icons.search,
-                        color: Colors.black38,
-                      ),
-                      hintStyle: TextStyle(
-                        color: Color(0xFF8d8d8d),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  margin: EdgeInsets.only(right: 10),
-                  child: IconButton(
-                    icon: Icon(Icons.filter_list),
-                    onPressed: () {},
-                  ),
-                ),
-              )
-            ],
-          ),
-          (exchangeType == 'BSE')
-              ? Expanded(
-                  child: FutureBuilder(
-                    future: bseList,
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if (snapshot.data == null) {
-                        return Container(
-                          child: Center(
-                            child: SpinKitDoubleBounce(
-                              color: Color(0xff3F72F9),
-                              size: 60.0,
-                            ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15.5),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromRGBO(168, 192, 255, 0.16),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3), // changes position of shadow
                           ),
-                        );
-                      }
-                      return ListView.builder(
-                        padding: EdgeInsets.only(top: 10),
-                        shrinkWrap: true,
-                        itemCount: bseFilterList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: Colors.white,
-                            ),
-                            child: ListTile(
-                              onTap: () {
-                                // dialogs.information(context, snapshot.data[index]);
-                                Navigator.of(context).pushNamed(
-                                    '/bsedetailspage',
-                                    arguments: bseFilterList[index]);
-                              },
-                              leading: Container(
-                                height: 0.05 * screenHeight,
-                                width: 0.1 * screenWidth,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage('images/bonds.png'),
-                                      fit: BoxFit.cover),
-                                ),
-                              ),
-                              title: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    bseFilterList[index].securityName,
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
-                                  ),
-                                  Text(
-                                      "Security Code: ${bseFilterList[index].securityCode}"),
-                                  Text(
-                                      "Ex-Date: ${bseFilterList[index].exDate}"),
-                                  Text(
-                                      "Purpose: ${bseFilterList[index].purpose}"),
-                                  SizedBox(
-                                    height: 2,
-                                  ),
-                                ],
-                              ),
+                        ],
+                      ),
+                      child: DropdownButton<String>(
+                        value: exchangeType,
+                        elevation: 16,
+                        underline: Container(height: 0),
+                        style: TextStyle(color: Colors.black45),
+                        icon: Icon(Icons.keyboard_arrow_down),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            exchangeType = newValue;
+                          });
+                        },
+                        items: <String>['BSE', 'NSE', 'MC']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
                             ),
                           );
-                        },
-                      );
-                    },
+                        }).toList(),
+                      ),
+                    ),
                   ),
-                )
-              : (exchangeType == 'NSE')
+                  Expanded(
+                    flex: 8,
+                    child: Container(
+                      margin: EdgeInsets.only(
+                          left: 15, right: 5, bottom: 15, top: 20),
+                      padding: EdgeInsets.only(
+                        left: 21.5,
+                        right: 8,
+                        top: 8,
+                        bottom: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15.5),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromRGBO(168, 192, 255, 0.16),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      //Search Bar
+                      child: TextFormField(
+                        onChanged: (value) async {
+                          //Filtering Content Logic
+                          List<BseCa> bseOriginalList = await bseList;
+                          List<NseCa> nseOriginalList = await nseList;
+                          List<McCa> mcOriginalList = await mcList;
+
+                          searchText = value;
+                          _debouncer.run(() {
+                            if (exchangeType == 'BSE') {
+                              setState(() {
+                                bseFilterList = bseOriginalList
+                                    .where((f) => (f.securityName
+                                            .toLowerCase()
+                                            .contains(value.toLowerCase()) ||
+                                        f.purpose
+                                            .toLowerCase()
+                                            .contains(value.toLowerCase())))
+                                    .toList();
+                              });
+                            } else if (exchangeType == 'NSE') {
+                              setState(() {
+                                nseFilterList = nseOriginalList
+                                    .where((f) => (f.symbol
+                                            .toLowerCase()
+                                            .contains(value.toLowerCase()) ||
+                                        f.purpose
+                                            .toLowerCase()
+                                            .contains(value.toLowerCase())))
+                                    .toList();
+                              });
+                            } else {
+                              setState(() {
+                                mcFilterList = mcOriginalList
+                                    .where((f) => (f.companyName
+                                            .toLowerCase()
+                                            .contains(value.toLowerCase()) ||
+                                        f.purpose
+                                            .toLowerCase()
+                                            .contains(value.toLowerCase())))
+                                    .toList();
+                              });
+                            }
+                          });
+                          print(searchText);
+                        },
+                        cursorColor: Color(0xff24213f),
+                        style: TextStyle(
+                          color: Color(0xff24213f),
+                        ),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          //"SEARCH"
+                          hintText: 'Search', //'Search for a topic',
+                          suffixIcon: Icon(
+                            Icons.search,
+                            color: Colors.black38,
+                          ),
+                          hintStyle: TextStyle(
+                            color: Color(0xFF8d8d8d),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      margin: EdgeInsets.only(right: 10),
+                      child: IconButton(
+                        icon: Icon(Icons.filter_list),
+                        onPressed: () {},
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              (exchangeType == 'BSE')
                   ? Expanded(
                       child: FutureBuilder(
-                        future: nseList,
+                        future: bseList,
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
                           if (snapshot.data == null) {
@@ -444,7 +469,7 @@ class _HomeTabState extends State<HomeTab> {
                           return ListView.builder(
                             padding: EdgeInsets.only(top: 10),
                             shrinkWrap: true,
-                            itemCount: nseFilterList.length,
+                            itemCount: bseFilterList.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Container(
                                 padding: EdgeInsets.symmetric(vertical: 10),
@@ -458,8 +483,8 @@ class _HomeTabState extends State<HomeTab> {
                                   onTap: () {
                                     // dialogs.information(context, snapshot.data[index]);
                                     Navigator.of(context).pushNamed(
-                                        '/nsedetailspage',
-                                        arguments: nseFilterList[index]);
+                                        '/bsedetailspage',
+                                        arguments: bseFilterList[index]);
                                   },
                                   leading: Container(
                                     height: 0.05 * screenHeight,
@@ -475,17 +500,17 @@ class _HomeTabState extends State<HomeTab> {
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
-                                        nseFilterList[index].symbol,
+                                        bseFilterList[index].securityName,
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline2,
                                       ),
                                       Text(
-                                          "Company Name: ${nseFilterList[index].companyName}"),
+                                          "Security Code: ${bseFilterList[index].securityCode}"),
                                       Text(
-                                          "Ex-Date: ${nseFilterList[index].exDate}"),
+                                          "Ex-Date: ${bseFilterList[index].exDate}"),
                                       Text(
-                                          "Purpose: ${nseFilterList[index].purpose}"),
+                                          "Purpose: ${bseFilterList[index].purpose}"),
                                       SizedBox(
                                         height: 2,
                                       ),
@@ -498,76 +523,176 @@ class _HomeTabState extends State<HomeTab> {
                         },
                       ),
                     )
-                  : Expanded(
-                      child: FutureBuilder(
-                        future: mcList,
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.data == null) {
-                            return Container(
-                              child: Center(
-                                child: SpinKitDoubleBounce(
-                                  color: Color(0xff3F72F9),
-                                  size: 60.0,
-                                ),
-                              ),
-                            );
-                          }
-                          return ListView.builder(
-                            padding: EdgeInsets.only(top: 10),
-                            shrinkWrap: true,
-                            itemCount: mcFilterList.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Container(
-                                padding: EdgeInsets.symmetric(vertical: 10),
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 8),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: Colors.white,
-                                ),
-                                child: ListTile(
-                                  onTap: () {
-                                    // dialogs.information(context, snapshot.data[index]);
-                                    Navigator.of(context).pushNamed(
-                                        '/mcdetailspage',
-                                        arguments: mcFilterList[index]);
-                                  },
-                                  leading: Container(
-                                    height: 0.05 * screenHeight,
-                                    width: 0.1 * screenWidth,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage('images/bonds.png'),
-                                          fit: BoxFit.cover),
+                  : (exchangeType == 'NSE')
+                      ? Expanded(
+                          child: FutureBuilder(
+                            future: nseList,
+                            builder:
+                                (BuildContext context, AsyncSnapshot snapshot) {
+                              if (snapshot.data == null) {
+                                return Container(
+                                  child: Center(
+                                    child: SpinKitDoubleBounce(
+                                      color: Color(0xff3F72F9),
+                                      size: 60.0,
                                     ),
                                   ),
-                                  title: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        mcFilterList[index].companyName,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2,
+                                );
+                              }
+                              return ListView.builder(
+                                padding: EdgeInsets.only(top: 10),
+                                shrinkWrap: true,
+                                itemCount: nseFilterList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 8),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: Colors.white,
+                                    ),
+                                    child: ListTile(
+                                      onTap: () {
+                                        // dialogs.information(context, snapshot.data[index]);
+                                        Navigator.of(context).pushNamed(
+                                            '/nsedetailspage',
+                                            arguments: nseFilterList[index]);
+                                      },
+                                      leading: Container(
+                                        height: 0.05 * screenHeight,
+                                        width: 0.1 * screenWidth,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  'images/bonds.png'),
+                                              fit: BoxFit.cover),
+                                        ),
                                       ),
-                                      Text(
-                                          "Ex-Date: ${mcFilterList[index].exDate}"),
-                                      Text(
-                                          "Purpose: ${mcFilterList[index].purpose}"),
-                                      SizedBox(
-                                        height: 2,
+                                      title: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            nseFilterList[index].symbol,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline2,
+                                          ),
+                                          Text(
+                                              "Company Name: ${nseFilterList[index].companyName}"),
+                                          Text(
+                                              "Ex-Date: ${nseFilterList[index].exDate}"),
+                                          Text(
+                                              "Purpose: ${nseFilterList[index].purpose}"),
+                                          SizedBox(
+                                            height: 2,
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ),
+                                    ),
+                                  );
+                                },
                               );
                             },
-                          );
-                        },
+                          ),
+                        )
+                      : Expanded(
+                          child: FutureBuilder(
+                            future: mcList,
+                            builder:
+                                (BuildContext context, AsyncSnapshot snapshot) {
+                              if (snapshot.data == null) {
+                                return Container(
+                                  child: Center(
+                                    child: SpinKitDoubleBounce(
+                                      color: Color(0xff3F72F9),
+                                      size: 60.0,
+                                    ),
+                                  ),
+                                );
+                              }
+                              return ListView.builder(
+                                padding: EdgeInsets.only(top: 10),
+                                shrinkWrap: true,
+                                itemCount: mcFilterList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 8),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: Colors.white,
+                                    ),
+                                    child: ListTile(
+                                      onTap: () {
+                                        // dialogs.information(context, snapshot.data[index]);
+                                        Navigator.of(context).pushNamed(
+                                            '/mcdetailspage',
+                                            arguments: mcFilterList[index]);
+                                      },
+                                      leading: Container(
+                                        height: 0.05 * screenHeight,
+                                        width: 0.1 * screenWidth,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  'images/bonds.png'),
+                                              fit: BoxFit.cover),
+                                        ),
+                                      ),
+                                      title: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            mcFilterList[index].companyName,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline2,
+                                          ),
+                                          Text(
+                                              "Ex-Date: ${mcFilterList[index].exDate}"),
+                                          Text(
+                                              "Purpose: ${mcFilterList[index].purpose}"),
+                                          SizedBox(
+                                            height: 2,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        )
+            ],
+          ),
+          (downloadProgress != 0)
+              ? Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  color: Color.fromRGBO(255, 255, 255, 0.6),
+                  child: Center(
+                    child: Opacity(
+                      opacity: 0.8,
+                      child: CircularStepProgressIndicator(
+                        totalSteps: 100,
+                        currentStep: downloadProgress.floor(),
+                        stepSize: 10,
+                        selectedColor: Color(0xff3F72F9),
+                        unselectedColor: Colors.grey[200],
+                        padding: 0,
+                        width: 100,
+                        height: 100,
+                        selectedStepSize: 15,
                       ),
-                    )
+                    ),
+                  ),
+                )
+              : Container()
         ],
       ),
     );
