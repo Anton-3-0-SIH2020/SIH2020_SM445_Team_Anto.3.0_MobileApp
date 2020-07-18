@@ -14,9 +14,7 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-
   final _debouncer = Debouncer(milliseconds: 200);
-  DetailsDialog dialogs = new DetailsDialog();
 
   //API CALLS
   BseLatestCa bseLatestCa;
@@ -219,12 +217,6 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                     ],
                   ),
-
-                  onTap: () {
-                    // dialogs.information(context, snapshot.data[index]);
-                    Navigator.of(context).pushNamed('/detailspage',
-                        arguments: snapshot.data[index]);
-                  },
                   //Search Bar
                   child: TextFormField(
                     onChanged: (value) async {
@@ -324,6 +316,11 @@ class _HomeTabState extends State<HomeTab> {
                               color: Colors.white,
                             ),
                             child: ListTile(
+                              onTap: () {
+                                // dialogs.information(context, snapshot.data[index]);
+                                Navigator.of(context).pushNamed('/detailspage',
+                                    arguments: bseFilterList[index]);
+                              },
                               leading: Container(
                                 height: 0.05 * screenHeight,
                                 width: 0.1 * screenWidth,

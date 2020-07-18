@@ -16,7 +16,7 @@ class BseLatestCa {
             securityName: ca['security_name'],
             ndEndDate: ca['nd_end_date'],
             securityCode: ca['security_code'],
-            ndStartDate: ca['ns_start_date'],
+            ndStartDate: ca['nd_start_date'],
             bcStartDate: ca['bc_start_date'],
             actualPaymentDate: ca['actual_payment_date'],
             recordDate: ca['record_date'],

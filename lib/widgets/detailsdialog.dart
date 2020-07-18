@@ -13,12 +13,12 @@ class DetailsBox extends StatelessWidget {
     return Container(
       height: 0.05 * screenHeight,
       width: 0.85 * screenWidth,
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Colors.black, width: 0.2),
-        ),
-        color: Color(0xffF3F5F7),
-      ),
+//      decoration: BoxDecoration(
+//        border: Border(
+//          bottom: BorderSide(color: Colors.black, width: 0.2),
+//        ),
+//        color: Color(0xffF3F5F7),
+//      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
