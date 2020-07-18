@@ -74,7 +74,7 @@ class McLatestCa {
 
       for (var ca in response.data['latest_ca']) {
         McCa newCorporateAction = McCa(
-            exDate: ca['ex_date'],
+            exDate: ca['ex-date'],
             purpose: ca['purpose'],
             actualPaymentDate: ca['actual_payment_date'],
             recordDate: ca['record_date'],
