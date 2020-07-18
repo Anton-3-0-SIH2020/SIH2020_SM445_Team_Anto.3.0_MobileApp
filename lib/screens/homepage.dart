@@ -1,5 +1,6 @@
 import 'package:anton_sih_app/core/api/latest_corporate_action.dart';
 import 'package:anton_sih_app/models/bse_ca.dart';
+import 'package:anton_sih_app/screens/homepagetabs/favourites.dart';
 import 'package:flutter/material.dart';
 import 'package:anton_sih_app/screens/homepagetabs/hometab.dart';
 import '../screens/homepagetabs/profilepage.dart';
@@ -11,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
-  final tabs = [HomeTab(), null, ProfilePage()];
+  final tabs = [HomeTab(), FavouritesTab(), ProfilePage()];
 
   @override
   void initState() {
