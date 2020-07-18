@@ -1,12 +1,16 @@
+import 'package:anton_sih_app/core/api/download_file.dart';
+import 'package:anton_sih_app/core/api/endpoints.dart';
 import 'package:anton_sih_app/core/api/latest_corporate_action.dart';
 import 'package:anton_sih_app/core/utilities/debouncer.dart';
 import 'package:anton_sih_app/models/bse_ca.dart';
 import 'package:anton_sih_app/models/mc_ca.dart';
 import 'package:anton_sih_app/models/nse_ca.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:unicorndial/unicorndial.dart';
-import '../../widgets/detailsdialog.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -20,6 +24,7 @@ class _HomeTabState extends State<HomeTab> {
   BseLatestCa bseLatestCa;
   NseLatestCa nseLatestCa;
   McLatestCa mcLatestCa;
+  DownloadFiles downloadFilesCall;
 
   //BSE LISTS
   List<BseCa> bseFilterList;
@@ -40,6 +45,8 @@ class _HomeTabState extends State<HomeTab> {
   void initState() {
     // TODO: implement initState
     exchangeType = 'BSE';
+
+    downloadFilesCall = new DownloadFiles();
 
     //BSE
     bseLatestCa = new BseLatestCa();
@@ -66,6 +73,33 @@ class _HomeTabState extends State<HomeTab> {
     mcFilterList = await mcList;
   }
 
+//  Future<void> downloadFile() async {
+//    var status = await Permission.storage.status;
+//    if (status.isUndetermined) {
+//      print('----Asking For Storage Permissions----');
+//    }
+//    if (await Permission.location.isRestricted) {
+//      print('----Access Restricted----');
+//    }
+//
+//    if (await Permission.storage.request().isGranted) {
+//      print('Downloading...');
+//      Dio dio = Dio();
+//      String fileUrl = Endpoints.baseUrl + Endpoints.downloadBsePdf;
+//      try {
+//        var dir = await getApplicationDocumentsDirectory();
+//        await dio.download(fileUrl, "${'/sdcard/downloads'}/bse_pdf.pdf",
+//            onReceiveProgress: (rec, total) {
+//          print("Rec: $rec , Total: $total");
+//          print(dir.path);
+//        });
+//      } catch (e) {
+//        print(e);
+//      }
+//    }
+//    print("Download completed");
+//  }
+
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
@@ -86,7 +120,11 @@ class _HomeTabState extends State<HomeTab> {
                 backgroundColor: Color(0xff3F72F9),
                 mini: true,
                 child: Icon(Icons.picture_as_pdf),
-                onPressed: () {},
+                onPressed: () {
+                  downloadFilesCall.downloadFile(
+                      Endpoints.baseUrl + Endpoints.downloadBsePdf,
+                      'bse_pdf.pdf');
+                },
               ),
             ),
             UnicornButton(
@@ -97,7 +135,11 @@ class _HomeTabState extends State<HomeTab> {
                 backgroundColor: Color(0xff3F72F9),
                 mini: true,
                 child: Icon(Icons.insert_drive_file),
-                onPressed: () {},
+                onPressed: () {
+                  downloadFilesCall.downloadFile(
+                      Endpoints.baseUrl + Endpoints.downloadBseCsv,
+                      'bse_csv.csv');
+                },
               ),
             ),
             UnicornButton(
@@ -108,7 +150,11 @@ class _HomeTabState extends State<HomeTab> {
                 backgroundColor: Color(0xff3F72F9),
                 mini: true,
                 child: Icon(Icons.picture_as_pdf),
-                onPressed: () {},
+                onPressed: () {
+                  downloadFilesCall.downloadFile(
+                      Endpoints.baseUrl + Endpoints.downloadNsePdf,
+                      'nse_pdf.pdf');
+                },
               ),
             ),
             UnicornButton(
@@ -119,7 +165,11 @@ class _HomeTabState extends State<HomeTab> {
                 backgroundColor: Color(0xff3F72F9),
                 mini: true,
                 child: Icon(Icons.insert_drive_file),
-                onPressed: () {},
+                onPressed: () {
+                  downloadFilesCall.downloadFile(
+                      Endpoints.baseUrl + Endpoints.downloadNseCsv,
+                      'nse_csv.csv');
+                },
               ),
             ),
             UnicornButton(
@@ -130,7 +180,11 @@ class _HomeTabState extends State<HomeTab> {
                 backgroundColor: Color(0xff3F72F9),
                 mini: true,
                 child: Icon(Icons.picture_as_pdf),
-                onPressed: () {},
+                onPressed: () {
+                  downloadFilesCall.downloadFile(
+                      Endpoints.baseUrl + Endpoints.downloadMcPdf,
+                      'mc_pdf.pdf');
+                },
               ),
             ),
             UnicornButton(
@@ -141,7 +195,11 @@ class _HomeTabState extends State<HomeTab> {
                 backgroundColor: Color(0xff3F72F9),
                 mini: true,
                 child: Icon(Icons.insert_drive_file),
-                onPressed: () {},
+                onPressed: () {
+                  downloadFilesCall.downloadFile(
+                      Endpoints.baseUrl + Endpoints.downloadMcCsv,
+                      'mc_csv.csv');
+                },
               ),
             ),
           ]),
@@ -150,7 +208,7 @@ class _HomeTabState extends State<HomeTab> {
           Row(
             children: [
               Expanded(
-                flex: 1,
+                flex: 4,
                 child: Container(
                   margin: EdgeInsets.only(left: 20, bottom: 15, top: 20),
                   padding: EdgeInsets.only(
@@ -195,10 +253,10 @@ class _HomeTabState extends State<HomeTab> {
                 ),
               ),
               Expanded(
-                flex: 3,
+                flex: 8,
                 child: Container(
                   margin:
-                      EdgeInsets.only(left: 15, right: 20, bottom: 15, top: 20),
+                      EdgeInsets.only(left: 15, right: 5, bottom: 15, top: 20),
                   padding: EdgeInsets.only(
                     left: 21.5,
                     right: 8,
@@ -285,6 +343,16 @@ class _HomeTabState extends State<HomeTab> {
                   ),
                 ),
               ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  margin: EdgeInsets.only(right: 10),
+                  child: IconButton(
+                    icon: Icon(Icons.filter_list),
+                    onPressed: () {},
+                  ),
+                ),
+              )
             ],
           ),
           (exchangeType == 'BSE')
