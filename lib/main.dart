@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         onGenerateRoute: RouteGenerator.generateRoute,
         theme: ThemeData.light().copyWith(
-          primaryColor: Color(0xFF4035EF),
+          primaryColor: Color(0xff3F72F9),
           scaffoldBackgroundColor: Colors.white,
           accentColor: Colors.white,
           textTheme: TextTheme(
@@ -57,6 +57,11 @@ class MyApp extends StatelessWidget {
             bodyText1: GoogleFonts.raleway(
               color: Colors.grey,
               fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
+            bodyText2: GoogleFonts.raleway(
+              color: Colors.black,
+              fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
           ),

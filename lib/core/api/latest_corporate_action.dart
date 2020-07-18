@@ -16,7 +16,7 @@ class BseLatestCa {
             securityName: ca['security_name'],
             ndEndDate: ca['nd_end_date'],
             securityCode: ca['security_code'],
-            ndStartDate: ca['ns_start_date'],
+            ndStartDate: ca['nd_start_date'],
             bcStartDate: ca['bc_start_date'],
             actualPaymentDate: ca['actual_payment_date'],
             recordDate: ca['record_date'],
@@ -74,7 +74,7 @@ class McLatestCa {
 
       for (var ca in response.data['latest_ca']) {
         McCa newCorporateAction = McCa(
-            exDate: ca['ex_date'],
+            exDate: ca['ex-date'],
             purpose: ca['purpose'],
             actualPaymentDate: ca['actual_payment_date'],
             recordDate: ca['record_date'],
@@ -82,7 +82,7 @@ class McLatestCa {
             companyName: ca['company_name'],
             ndStartDate: ca['nd_start_date'],
             anouncment: ca['anouncement'],
-            bcStartDate: ca['bs_start_date'],
+            bcStartDate: ca['bc_start_date'],
             ndEndDate: ca['bc_end_date']);
         mcList.add(newCorporateAction);
       }
