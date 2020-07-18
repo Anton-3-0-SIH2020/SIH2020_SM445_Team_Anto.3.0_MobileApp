@@ -1,3 +1,8 @@
+import 'package:anton_sih_app/models/mc_ca.dart';
+import 'package:anton_sih_app/models/nse_ca.dart';
+import 'package:anton_sih_app/screens/details_pages/bsedetailpage.dart';
+import 'package:anton_sih_app/screens/details_pages/mcdetailpage.dart';
+import 'package:anton_sih_app/screens/details_pages/nsedetailpage.dart';
 import 'package:flutter/material.dart';
 
 import '../../screens/landingpage.dart';
@@ -19,14 +24,33 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SignUp());
       case '/homepage':
         return MaterialPageRoute(builder: (_) => HomePage());
-      case '/detailspage':
+      case '/bsedetailspage':
         if (args is BseCa) {
           return MaterialPageRoute(
-            builder: (_) => DetailsPage(
+            builder: (_) => BseDetailsPage(
               data: args,
             ),
           );
         }
+        break;
+      case '/nsedetailspage':
+        if (args is NseCa) {
+          return MaterialPageRoute(
+            builder: (_) => NseDetailsPage(
+              data: args,
+            ),
+          );
+        }
+        break;
+      case '/mcdetailspage':
+        if (args is McCa) {
+          return MaterialPageRoute(
+            builder: (_) => McDetailsPage(
+              data: args,
+            ),
+          );
+        }
+        break;
         return _errorRoute();
       default:
         return _errorRoute();

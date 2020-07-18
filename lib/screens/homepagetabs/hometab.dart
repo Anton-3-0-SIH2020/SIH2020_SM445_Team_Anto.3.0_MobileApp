@@ -318,7 +318,8 @@ class _HomeTabState extends State<HomeTab> {
                             child: ListTile(
                               onTap: () {
                                 // dialogs.information(context, snapshot.data[index]);
-                                Navigator.of(context).pushNamed('/detailspage',
+                                Navigator.of(context).pushNamed(
+                                    '/bsedetailspage',
                                     arguments: bseFilterList[index]);
                               },
                               leading: Container(
@@ -386,6 +387,12 @@ class _HomeTabState extends State<HomeTab> {
                                   color: Colors.white,
                                 ),
                                 child: ListTile(
+                                  onTap: () {
+                                    // dialogs.information(context, snapshot.data[index]);
+                                    Navigator.of(context).pushNamed(
+                                        '/nsedetailspage',
+                                        arguments: nseFilterList[index]);
+                                  },
                                   leading: Container(
                                     height: 0.05 * screenHeight,
                                     width: 0.1 * screenWidth,
@@ -452,6 +459,12 @@ class _HomeTabState extends State<HomeTab> {
                                   color: Colors.white,
                                 ),
                                 child: ListTile(
+                                  onTap: () {
+                                    // dialogs.information(context, snapshot.data[index]);
+                                    Navigator.of(context).pushNamed(
+                                        '/mcdetailspage',
+                                        arguments: mcFilterList[index]);
+                                  },
                                   leading: Container(
                                     height: 0.05 * screenHeight,
                                     width: 0.1 * screenWidth,

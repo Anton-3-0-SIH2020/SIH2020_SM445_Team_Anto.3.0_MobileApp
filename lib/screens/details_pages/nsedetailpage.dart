@@ -1,20 +1,20 @@
+import 'package:anton_sih_app/models/nse_ca.dart';
 import 'package:anton_sih_app/widgets/detailsdialog.dart';
 import 'package:flutter/material.dart';
-import 'package:anton_sih_app/models/bse_ca.dart';
 
-class DetailsPage extends StatefulWidget {
-  final BseCa data;
+class NseDetailsPage extends StatefulWidget {
+  final NseCa data;
 
-  DetailsPage({
+  NseDetailsPage({
     Key key,
     @required this.data,
   }) : super(key: key);
 
   @override
-  _DetailsPageState createState() => _DetailsPageState();
+  _NseDetailsPageState createState() => _NseDetailsPageState();
 }
 
-class _DetailsPageState extends State<DetailsPage> {
+class _NseDetailsPageState extends State<NseDetailsPage> {
   bool _isFavorited = false;
   @override
   void _toggleFavorite() {
@@ -30,7 +30,6 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     // TODO: implement initState
-    print(widget.data.exDate);
     super.initState();
   }
 
@@ -108,7 +107,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     ),
                     Center(
                       child: Text(
-                        widget.data.securityName,
+                        widget.data.symbol,
                         style: Theme.of(context).textTheme.caption,
                       ),
                     ),
@@ -125,43 +124,57 @@ class _DetailsPageState extends State<DetailsPage> {
                   SizedBox(
                     height: 0.05 * screenHeight,
                   ),
-                  DetailsBox("Security Code", widget.data.securityCode),
+                  DetailsBox("Company Name", widget.data.companyName),
                   SizedBox(
                     height: 0.020 * screenHeight,
                   ),
-                  DetailsBox("Ex-Date", widget.data.exDate),
+                  DetailsBox("Ex-Date",
+                      (widget.data.exDate == null) ? '-' : widget.data.exDate),
                   SizedBox(
                     height: 0.020 * screenHeight,
                   ),
-                  DetailsBox("Record Date", widget.data.recordDate),
+                  DetailsBox(
+                      "Record Date",
+                      (widget.data.recordDate == null)
+                          ? '-'
+                          : widget.data.recordDate),
                   SizedBox(
                     height: 0.020 * screenHeight,
                   ),
-                  DetailsBox("Purpose", widget.data.purpose),
+                  DetailsBox(
+                      "Purpose",
+                      (widget.data.purpose == null)
+                          ? '-'
+                          : widget.data.purpose),
                   SizedBox(
                     height: 0.020 * screenHeight,
                   ),
-                  DetailsBox("BC Start Date", widget.data.bcStartDate),
+                  DetailsBox("Series",
+                      (widget.data.series == null) ? '-' : widget.data.series),
                   SizedBox(
                     height: 0.020 * screenHeight,
                   ),
-                  DetailsBox("BC End Date", widget.data.bcEndDate),
+                  DetailsBox(
+                      "Face Value",
+                      (widget.data.faceValue == null)
+                          ? '-'
+                          : widget.data.faceValue),
                   SizedBox(
                     height: 0.020 * screenHeight,
                   ),
-                  DetailsBox("ND Start Date", widget.data.ndStartDate),
+                  DetailsBox(
+                      "BC Start Date",
+                      (widget.data.bcStartDate == null)
+                          ? '-'
+                          : widget.data.bcStartDate),
                   SizedBox(
                     height: 0.020 * screenHeight,
                   ),
-                  DetailsBox("ND End Date", widget.data.ndEndDate),
-                  SizedBox(
-                    height: 0.020 * screenHeight,
-                  ),
-                  DetailsBox("ND Start Date", widget.data.ndStartDate),
-                  SizedBox(
-                    height: 0.020 * screenHeight,
-                  ),
-                  DetailsBox("ND End Date", widget.data.ndEndDate),
+                  DetailsBox(
+                      "BC End Date",
+                      (widget.data.bcEndDate == null)
+                          ? '-'
+                          : widget.data.bcEndDate),
                   SizedBox(
                     height: 0.020 * screenHeight,
                   ),

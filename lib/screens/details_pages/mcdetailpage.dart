@@ -1,20 +1,21 @@
+import 'package:anton_sih_app/models/mc_ca.dart';
 import 'package:anton_sih_app/widgets/detailsdialog.dart';
 import 'package:flutter/material.dart';
 import 'package:anton_sih_app/models/bse_ca.dart';
 
-class DetailsPage extends StatefulWidget {
-  final BseCa data;
+class McDetailsPage extends StatefulWidget {
+  final McCa data;
 
-  DetailsPage({
+  McDetailsPage({
     Key key,
     @required this.data,
   }) : super(key: key);
 
   @override
-  _DetailsPageState createState() => _DetailsPageState();
+  _McDetailsPageState createState() => _McDetailsPageState();
 }
 
-class _DetailsPageState extends State<DetailsPage> {
+class _McDetailsPageState extends State<McDetailsPage> {
   bool _isFavorited = false;
   @override
   void _toggleFavorite() {
@@ -108,7 +109,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     ),
                     Center(
                       child: Text(
-                        widget.data.securityName,
+                        widget.data.companyName,
                         style: Theme.of(context).textTheme.caption,
                       ),
                     ),
@@ -125,7 +126,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   SizedBox(
                     height: 0.05 * screenHeight,
                   ),
-                  DetailsBox("Security Code", widget.data.securityCode),
+                  DetailsBox("Company Name", widget.data.companyName),
                   SizedBox(
                     height: 0.020 * screenHeight,
                   ),

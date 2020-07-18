@@ -82,7 +82,7 @@ class McLatestCa {
             companyName: ca['company_name'],
             ndStartDate: ca['nd_start_date'],
             anouncment: ca['anouncement'],
-            bcStartDate: ca['bs_start_date'],
+            bcStartDate: ca['bc_start_date'],
             ndEndDate: ca['bc_end_date']);
         mcList.add(newCorporateAction);
       }

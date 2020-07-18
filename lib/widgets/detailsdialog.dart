@@ -11,24 +11,25 @@ class DetailsBox extends StatelessWidget {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: 0.05 * screenHeight,
+      height: 0.06 * screenHeight,
       width: 0.85 * screenWidth,
-//      decoration: BoxDecoration(
-//        border: Border(
-//          bottom: BorderSide(color: Colors.black, width: 0.2),
-//        ),
-//        color: Color(0xffF3F5F7),
-//      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text(
-            name,
-            style: Theme.of(context).textTheme.subtitle1,
+          Expanded(
+            child: Text(
+              name,
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
           ),
-          Text(
-            value,
-            style: Theme.of(context).textTheme.bodyText2,
+          Expanded(
+            child: Text(
+              '''$value''',
+              style: Theme.of(context).textTheme.bodyText2,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 3,
+              textAlign: TextAlign.right,
+            ),
           ),
         ],
       ),

@@ -2,19 +2,19 @@ import 'package:anton_sih_app/widgets/detailsdialog.dart';
 import 'package:flutter/material.dart';
 import 'package:anton_sih_app/models/bse_ca.dart';
 
-class DetailsPage extends StatefulWidget {
+class BseDetailsPage extends StatefulWidget {
   final BseCa data;
 
-  DetailsPage({
+  BseDetailsPage({
     Key key,
     @required this.data,
   }) : super(key: key);
 
   @override
-  _DetailsPageState createState() => _DetailsPageState();
+  _BseDetailsPageState createState() => _BseDetailsPageState();
 }
 
-class _DetailsPageState extends State<DetailsPage> {
+class _BseDetailsPageState extends State<BseDetailsPage> {
   bool _isFavorited = false;
   @override
   void _toggleFavorite() {
