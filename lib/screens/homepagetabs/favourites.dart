@@ -150,7 +150,7 @@ class _FavouritesPageState extends State<FavouritesTab> {
                           onTap: () {
                             // dialogs.information(context, snapshot.data[index]);
                             Navigator.of(context).pushNamed('/companycalist',
-                                arguments: companyFilterList[index].code);
+                                arguments: companyFilterList[index]);
                           },
                           leading: Container(
                             height: 0.05 * screenHeight,

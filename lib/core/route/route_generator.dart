@@ -55,7 +55,7 @@ class RouteGenerator {
       case '/companycalist':
         return MaterialPageRoute(
           builder: (_) => CompanyCaList(
-            secCode: args,
+            company: args,
           ),
         );
       default:
