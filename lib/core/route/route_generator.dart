@@ -33,7 +33,7 @@ class RouteGenerator {
             ),
           );
         }
-        break;
+        return _errorRoute();
       case '/nsedetailspage':
         if (args is NseCa) {
           return MaterialPageRoute(
@@ -42,7 +42,7 @@ class RouteGenerator {
             ),
           );
         }
-        break;
+        return _errorRoute();
       case '/mcdetailspage':
         if (args is McCa) {
           return MaterialPageRoute(

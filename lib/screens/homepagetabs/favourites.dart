@@ -1,8 +1,11 @@
+import 'package:anton_sih_app/core/db_helper/external_db_helper.dart';
+import 'package:anton_sih_app/models/companies.dart';
 import 'package:flutter/material.dart';
 import 'package:anton_sih_app/core/api/latest_corporate_action.dart';
 import 'package:anton_sih_app/models/bse_ca.dart';
 import 'package:anton_sih_app/models/mc_ca.dart';
 import 'package:anton_sih_app/models/nse_ca.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:unicorndial/unicorndial.dart';
 import 'package:anton_sih_app/core/utilities/debouncer.dart';
 import '../../models/favouritecompanies.dart';
@@ -22,53 +25,29 @@ class _FavouritesPageState extends State<FavouritesTab> {
     FavouriteCompanies('NAME6', '1234', true),
   ];
 
-  final _debouncer = Debouncer(milliseconds: 200);
-  BseLatestCa bseLatestCa;
-  NseLatestCa nseLatestCa;
-  McLatestCa mcLatestCa;
-
-  //BSE LISTS
-  List<BseCa> bseFilterList;
-  Future<List<BseCa>> bseList;
-
-  //NSE LISTS
-  List<NseCa> nseFilterList;
-  Future<List<NseCa>> nseList;
-
-  //MC LISTS
-  List<McCa> mcFilterList;
-  Future<List<McCa>> mcList;
-
+  final _debouncer = Debouncer(milliseconds: 300);
+  External_Database_Manager dbManager;
   String searchText;
   String exchangeType;
+  Future<List<Company>> companyList;
+  List<Company> companyFilterList;
 
   @override
   void initState() {
     // TODO: implement initState
+
     exchangeType = 'BSE';
-    //BSE
-    bseLatestCa = new BseLatestCa();
-    bseList = bseLatestCa.getLatestCa();
-    bseFilterList = [];
-
-    //NSE
-    nseLatestCa = new NseLatestCa();
-    nseList = nseLatestCa.getLatestCa();
-    nseFilterList = [];
-
-    //MC
-    mcLatestCa = new McLatestCa();
-    mcList = mcLatestCa.getLatestCa();
-    mcFilterList = [];
+    dbManager = new External_Database_Manager();
+    companyList = dbManager.getCompanies();
+    companyFilterList = [];
 
     initializer();
+
     super.initState();
   }
 
   void initializer() async {
-    bseFilterList = await bseList;
-    nseFilterList = await nseList;
-    mcFilterList = await mcList;
+    companyFilterList = await companyList;
   }
 
   @override
@@ -103,46 +82,19 @@ class _FavouritesPageState extends State<FavouritesTab> {
               child: TextFormField(
                 onChanged: (value) async {
                   //Filtering Content Logic
-                  List<BseCa> bseOriginalList = await bseList;
-                  List<NseCa> nseOriginalList = await nseList;
-                  List<McCa> mcOriginalList = await mcList;
-
+                  List<Company> originalCompanyList = await companyList;
                   searchText = value;
                   _debouncer.run(() {
-                    if (exchangeType == 'BSE') {
-                      setState(() {
-                        bseFilterList = bseOriginalList
-                            .where((f) => (f.securityName
-                                    .toLowerCase()
-                                    .contains(value.toLowerCase()) ||
-                                f.purpose
-                                    .toLowerCase()
-                                    .contains(value.toLowerCase())))
-                            .toList();
-                      });
-                    } else if (exchangeType == 'NSE') {
-                      setState(() {
-                        nseFilterList = nseOriginalList
-                            .where((f) => (f.symbol
-                                    .toLowerCase()
-                                    .contains(value.toLowerCase()) ||
-                                f.purpose
-                                    .toLowerCase()
-                                    .contains(value.toLowerCase())))
-                            .toList();
-                      });
-                    } else {
-                      setState(() {
-                        mcFilterList = mcOriginalList
-                            .where((f) => (f.companyName
-                                    .toLowerCase()
-                                    .contains(value.toLowerCase()) ||
-                                f.purpose
-                                    .toLowerCase()
-                                    .contains(value.toLowerCase())))
-                            .toList();
-                      });
-                    }
+                    setState(() {
+                      companyFilterList = originalCompanyList
+                          .where((f) => (f.name
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              f.code
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase())))
+                          .toList();
+                    });
                   });
                   print(searchText);
                 },
@@ -169,56 +121,68 @@ class _FavouritesPageState extends State<FavouritesTab> {
 
             //TODO: LIST VIEW BUILDER
             Expanded(
-              child: ListView.builder(
-                itemCount: favCompanies.length,
-                itemBuilder: (context, index) {
-                  final item = favCompanies[index];
-
-                  return Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    margin: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.white,
-                    ),
-                    child: ListTile(
-                      onTap: () {
-                        // dialogs.information(context, snapshot.data[index]);
-                        Navigator.of(context).pushNamed('/companycalist',
-                            arguments: item.securityCode);
-                      },
-                      leading: Container(
-                        height: 0.05 * screenHeight,
-                        width: 0.1 * screenWidth,
+              child: FutureBuilder(
+                future: companyList,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (companyList == null) {
+                    return Container(
+                      child: Center(
+                        child: SpinKitDoubleBounce(
+                          color: Color(0xff3F72F9),
+                          size: 60.0,
+                        ),
+                      ),
+                    );
+                  }
+                  return ListView.builder(
+                    itemCount: companyFilterList.length,
+                    itemBuilder: (context, index) {
+                      final item = companyFilterList[index];
+                      return Container(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                         decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('images/coins.png'),
-                              fit: BoxFit.cover),
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.white,
                         ),
-                      ),
-                      title: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            item.name,
-                            style: Theme.of(context).textTheme.headline2,
+                        child: ListTile(
+                          onTap: () {
+                            // dialogs.information(context, snapshot.data[index]);
+                            Navigator.of(context).pushNamed('/companycalist',
+                                arguments: companyFilterList[index].code);
+                          },
+                          leading: Container(
+                            height: 0.05 * screenHeight,
+                            width: 0.1 * screenWidth,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('images/coins.png'),
+                                  fit: BoxFit.cover),
+                            ),
                           ),
-                          Text("Security Code: ${item.securityCode}"),
-                          // Text("Ex-Date: ${bseFilterList[index].exDate}"),
-                          // Text("Purpose: ${bseFilterList[index].purpose}"),
-                          // SizedBox(
-                          //   height: 2,
-                          // ),
-                        ],
-                      ),
-                      trailing: IconButton(
-                        icon: Icon(
-                          Icons.star,
-                          color: Color(0xFFF4C2C2),
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                item.name,
+                                style: Theme.of(context).textTheme.headline2,
+                              ),
+                              Text(
+                                "Security Code: ${item.code}",
+                              ),
+                            ],
+                          ),
+                          trailing: IconButton(
+                            icon: Icon(
+                              Icons.star,
+                              color: Color(0xFFF4C2C2),
+                            ),
+                            onPressed: null,
+                          ),
                         ),
-                        onPressed: null,
-                      ),
-                    ),
+                      );
+                    },
                   );
                 },
               ),

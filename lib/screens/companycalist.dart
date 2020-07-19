@@ -1,4 +1,4 @@
-import 'package:anton_sih_app/core/api/favourite_corporate_action.dart';
+import 'package:anton_sih_app/core/api/company_corporate_action.dart';
 import 'package:flutter/material.dart';
 import 'package:anton_sih_app/models/bse_ca.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -16,15 +16,15 @@ class CompanyCaList extends StatefulWidget {
 }
 
 class _CompanyCaListState extends State<CompanyCaList> {
-  BseFavCa bseFavCa;
+  BseCompanyCa bseFavCa;
   List<BseCa> bseFavList;
   Future<List<BseCa>> bseList;
 
   @override
   void initState() {
     //BSE
-    bseFavCa = new BseFavCa();
-    bseList = bseFavCa.getFavCa(widget.secCode);
+    bseFavCa = new BseCompanyCa();
+    bseList = bseFavCa.getCompanyCa(widget.secCode);
     bseFavList = [];
     initializer();
     super.initState();
@@ -75,6 +75,12 @@ class _CompanyCaListState extends State<CompanyCaList> {
                   color: Color(0xff3F72F9),
                   size: 60.0,
                 ),
+              ),
+            );
+          } else if (snapshot.data.length == 0) {
+            return Container(
+              child: Center(
+                child: Image.asset('images/no_data.png'),
               ),
             );
           }

@@ -1,4 +1,5 @@
 import 'package:anton_sih_app/core/api/latest_corporate_action.dart';
+import 'package:anton_sih_app/core/db_helper/external_db_helper.dart';
 import 'package:anton_sih_app/models/bse_ca.dart';
 import 'package:anton_sih_app/screens/homepagetabs/favourites.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    External_Database_Manager manager = new External_Database_Manager();
+    manager.Transfer_Data();
   }
 
   @override
