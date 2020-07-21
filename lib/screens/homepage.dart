@@ -1,5 +1,7 @@
 import 'package:anton_sih_app/core/api/latest_corporate_action.dart';
+import 'package:anton_sih_app/core/db_helper/external_db_helper.dart';
 import 'package:anton_sih_app/models/bse_ca.dart';
+import 'package:anton_sih_app/screens/homepagetabs/favourites.dart';
 import 'package:flutter/material.dart';
 import 'package:anton_sih_app/screens/homepagetabs/hometab.dart';
 import '../screens/homepagetabs/profilepage.dart';
@@ -11,18 +13,21 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
-  final tabs = [HomeTab(), null, ProfilePage()];
+  final tabs = [HomeTab(), FavouritesTab(), ProfilePage()];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    External_Database_Manager manager = new External_Database_Manager();
+    manager.Transfer_Data();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Container(),
         iconTheme: IconThemeData(color: Color(0xff24213F)),
         elevation: 0,
         backgroundColor: Color(0xffF3F5F7),
