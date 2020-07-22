@@ -53,7 +53,7 @@ class LandingPage extends StatelessWidget {
                     height: screenHeight * 0.075,
                     width: screenWidth * 0.35,
                     decoration: BoxDecoration(
-                        color: Color(0xFF4035EF),
+                        color: Color(0xff3F72F9),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: Center(
                         child: Text(
@@ -72,7 +72,7 @@ class LandingPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       border: Border.all(
-                        color: Color(0xFF4035EF),
+                        color: Color(0xff3F72F9),
                         width: 1,
                       ),
                     ),
@@ -81,7 +81,7 @@ class LandingPage extends StatelessWidget {
                       'Sign up',
                       style: TextStyle(
                         fontSize: 18,
-                        color: Color(0xFF4035EF),
+                        color: Color(0xff3F72F9),
                       ),
                     )),
                   ),
