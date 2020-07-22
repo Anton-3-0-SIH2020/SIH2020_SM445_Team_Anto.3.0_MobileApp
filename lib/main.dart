@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:anton_sih_app/core/route/route_generator.dart';
+import 'package:flutter/services.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) {
+    runApp(MyApp());
+  });
+}
 
 class MyApp extends StatelessWidget {
   @override

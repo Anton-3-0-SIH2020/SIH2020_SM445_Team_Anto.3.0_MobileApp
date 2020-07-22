@@ -1,4 +1,4 @@
-import 'package:anton_sih_app/screens/homepagetabs/favourites.dart';
+import 'package:anton_sih_app/screens/homepagetabs/historic_tab.dart';
 
 class FavouriteCompanies {
   String name;

@@ -16,15 +16,6 @@ class FavouritesTab extends StatefulWidget {
 }
 
 class _FavouritesPageState extends State<FavouritesTab> {
-  List<FavouriteCompanies> favCompanies = [
-    FavouriteCompanies('NAME1', '500825', true),
-    FavouriteCompanies('NAME2', '1234', true),
-    FavouriteCompanies('NAME3', '1234', true),
-    FavouriteCompanies('NAME4', '1234', true),
-    FavouriteCompanies('NAME5', '1234', true),
-    FavouriteCompanies('NAME6', '1234', true),
-  ];
-
   final _debouncer = Debouncer(milliseconds: 300);
   External_Database_Manager dbManager;
   String searchText;
@@ -146,39 +137,45 @@ class _FavouritesPageState extends State<FavouritesTab> {
                           borderRadius: BorderRadius.circular(30),
                           color: Colors.white,
                         ),
-                        child: ListTile(
-                          onTap: () {
-                            // dialogs.information(context, snapshot.data[index]);
-                            Navigator.of(context).pushNamed('/companycalist',
-                                arguments: companyFilterList[index]);
-                          },
-                          leading: Container(
-                            height: 0.05 * screenHeight,
-                            width: 0.1 * screenWidth,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('images/coins.png'),
-                                  fit: BoxFit.cover),
-                            ),
-                          ),
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                item.name,
-                                style: Theme.of(context).textTheme.headline2,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 8),
+                          child: ListTile(
+                            onTap: () {
+                              // dialogs.information(context, snapshot.data[index]);
+                              Navigator.of(context).pushNamed('/companycalist',
+                                  arguments: companyFilterList[index]);
+                            },
+                            leading: Container(
+                              height: 0.05 * screenHeight,
+                              width: 0.1 * screenWidth,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('images/coins.png'),
+                                    fit: BoxFit.cover),
                               ),
-                              Text(
-                                "Security Code: ${item.code}",
-                              ),
-                            ],
-                          ),
-                          trailing: IconButton(
-                            icon: Icon(
-                              Icons.star,
-                              color: Color(0xFFF4C2C2),
                             ),
-                            onPressed: null,
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  item.name,
+                                  style: Theme.of(context).textTheme.headline2,
+                                ),
+                                SizedBox(
+                                  height: 0.01 * screenHeight,
+                                ),
+                                Text(
+                                  "Security Code: ${item.code}",
+                                ),
+                              ],
+                            ),
+//                          trailing: IconButton(
+//                            icon: Icon(
+//                              Icons.star,
+//                              color: Color(0xFFF4C2C2),
+//                            ),
+//                            onPressed: null,
+//                          ),
                           ),
                         ),
                       );
