@@ -33,12 +33,11 @@ class External_Database_Manager {
   }
 
   Future<List<Company>> getCompanies() async {
-    print('Getting Companies');
     List<Company> companyList = new List<Company>();
 
     String dirPath = await _localPath;
     String path = join(dirPath, "asset_companies.db");
-    db = await openDatabase(path, readOnly: true);
+    db = await openDatabase(path, readOnly: false);
     String TABLE = 'companies';
     List<Map> list = await db.rawQuery('SELECT * FROM $TABLE');
     if (list.length > 0) {
@@ -46,7 +45,8 @@ class External_Database_Manager {
         Company newCompany = new Company(
             exchange: list[i]['exchange'],
             name: list[i]['company'],
-            code: list[i]['code']);
+            code: list[i]['code'],
+            isFavorite: list[i]['isFavorite']);
         companyList.add(newCompany);
       }
       return companyList;
@@ -54,5 +54,43 @@ class External_Database_Manager {
       companyList = [];
       return companyList;
     }
+  }
+
+  Future<List<Company>> getFavoriteCompanies() async {
+    List<Company> companyList = new List<Company>();
+
+    String dirPath = await _localPath;
+    String path = join(dirPath, "asset_companies.db");
+    db = await openDatabase(path, readOnly: false);
+    String TABLE = 'companies';
+    List<Map> list =
+        await db.rawQuery('SELECT * FROM $TABLE WHERE isFavorite = 1');
+    if (list.length > 0) {
+      for (int i = 0; i < list.length; i++) {
+        Company newCompany = new Company(
+            exchange: list[i]['exchange'],
+            name: list[i]['company'],
+            code: list[i]['code'],
+            isFavorite: list[i]['isFavorite']);
+        companyList.add(newCompany);
+      }
+      return companyList;
+    } else {
+      companyList = [];
+      return companyList;
+    }
+  }
+
+  Future<void> changeFavoriteStatus(String code, int status) async {
+    String dirPath = await _localPath;
+    String path = join(dirPath, "asset_companies.db");
+    db = await openDatabase(path, readOnly: false);
+    String TABLE = 'companies';
+    db
+        .rawUpdate(
+            'UPDATE ${TABLE} SET isFavorite = ${status} WHERE code = ${code}')
+        .then((value) {
+      print(status);
+    });
   }
 }

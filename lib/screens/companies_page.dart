@@ -132,13 +132,10 @@ class _CompaniesPageState extends State<CompaniesPage> {
             child: FutureBuilder(
               future: companyList,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (companyList == null) {
+                if (companyFilterList.length == 0) {
                   return Container(
                     child: Center(
-                      child: SpinKitDoubleBounce(
-                        color: Color(0xff3F72F9),
-                        size: 60.0,
-                      ),
+                      child: Image.asset('images/no_data.png'),
                     ),
                   );
                 }
@@ -156,11 +153,6 @@ class _CompaniesPageState extends State<CompaniesPage> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 5),
                         child: ListTile(
-//                          onTap: () {
-//                            // dialogs.information(context, snapshot.data[index]);
-//                            Navigator.of(context).pushNamed('/companycalist',
-//                                arguments: companyFilterList[index]);
-//                          },
                           leading: Container(
                             height: 0.05 * screenHeight,
                             width: 0.1 * screenWidth,
@@ -187,10 +179,22 @@ class _CompaniesPageState extends State<CompaniesPage> {
                           ),
                           trailing: IconButton(
                             icon: Icon(
-                              Icons.star,
-                              color: Color(0xFFF4C2C2),
+                              (item.isFavorite == 0)
+                                  ? Icons.favorite_border
+                                  : Icons.favorite,
+                              color: Colors.red,
                             ),
-                            onPressed: null,
+                            onPressed: () {
+                              dbManager
+                                  .changeFavoriteStatus(
+                                      item.code, (item.isFavorite == 0) ? 1 : 0)
+                                  .then((value) {
+                                setState(() {
+                                  this.companyFilterList[index].isFavorite =
+                                      (item.isFavorite == 0) ? 1 : 0;
+                                });
+                              });
+                            },
                           ),
                         ),
                       ),
