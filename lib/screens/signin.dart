@@ -1,8 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'signup.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
+  @override
+  _SignInState createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  String _email;
+
+  String _password;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -45,6 +55,9 @@ class SignIn extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     TextField(
+                      onChanged: (value) {
+                        _email = value;
+                      },
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.mail),
                         labelText: 'EMAIL',
@@ -61,6 +74,9 @@ class SignIn extends StatelessWidget {
                     ),
                     SizedBox(height: 20.0),
                     TextField(
+                      onChanged: (value) {
+                        _password = value;
+                      },
                       decoration: InputDecoration(
                           prefixIcon: Icon(Icons.lock),
                           suffixIcon: Icon(Icons.remove_red_eye),
@@ -99,7 +115,16 @@ class SignIn extends StatelessWidget {
                         elevation: 7.0,
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pushNamed('/homepage');
+                            FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                                    email: _email, password: _password)
+                                .then((user) {
+                              Navigator.of(context).pop();
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/homepage');
+                            }).catchError((e) {
+                              print(e);
+                            });
                           },
                           child: Center(
                             child: Text(

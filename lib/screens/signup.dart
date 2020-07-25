@@ -1,8 +1,20 @@
+import 'package:anton_sih_app/usermanagement.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'signin.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
+  @override
+  _SignUpState createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  String _password;
+  String _email;
+  String _name;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -39,6 +51,11 @@ class SignUp extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        _email = value;
+                      });
+                    },
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.mail),
                         labelText: 'EMAIL',
@@ -53,6 +70,11 @@ class SignUp extends StatelessWidget {
                   ),
                   SizedBox(height: 10.0),
                   TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        _password = value;
+                      });
+                    },
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.lock),
                         suffixIcon: Icon(Icons.remove_red_eye),
@@ -67,6 +89,11 @@ class SignUp extends StatelessWidget {
                   ),
                   SizedBox(height: 10.0),
                   TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        _name = value;
+                      });
+                    },
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.person),
                         labelText: 'FULL NAME ',
@@ -86,7 +113,15 @@ class SignUp extends StatelessWidget {
                         color: Color(0xff3F72F9),
                         elevation: 7.0,
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                                    email: _email, password: _password)
+                                .then((signedInUser) {
+                              UserManagement()
+                                  .storeNewUser(signedInUser, context);
+                            });
+                          },
                           child: Center(
                             child: Text(
                               'SIGNUP',

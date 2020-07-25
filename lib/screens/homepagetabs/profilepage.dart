@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -127,9 +128,18 @@ class _ProfilePageState extends State<ProfilePage> {
             padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
             child: Align(
               alignment: FractionalOffset.centerLeft,
-              child: Text(
-                'Logout',
-                style: Theme.of(context).textTheme.headline3,
+              child: InkWell(
+                onTap: () {
+                  FirebaseAuth.instance.signOut().then((value) {
+                    Navigator.of(context).pushReplacementNamed('/');
+                  }).catchError((e) {
+                    print(e);
+                  });
+                },
+                child: Text(
+                  'Logout',
+                  style: Theme.of(context).textTheme.headline3,
+                ),
               ),
             ),
           ),
