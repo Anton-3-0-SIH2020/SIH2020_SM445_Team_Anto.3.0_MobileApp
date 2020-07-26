@@ -86,9 +86,12 @@ class External_Database_Manager {
     String path = join(dirPath, "asset_companies.db");
     db = await openDatabase(path, readOnly: false);
     String TABLE = 'companies';
+    print(code.length);
     db
-        .rawUpdate(
-            'UPDATE ${TABLE} SET isFavorite = ${status} WHERE code = ${code}')
+        .rawUpdate('UPDATE ${TABLE} SET isFavorite = ${status} WHERE code = ' +
+            "'" +
+            '${code}' +
+            "'")
         .then((value) {
       print(status);
     });
