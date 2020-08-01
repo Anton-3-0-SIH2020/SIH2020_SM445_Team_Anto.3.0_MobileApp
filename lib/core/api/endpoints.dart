@@ -7,6 +7,7 @@ class Endpoints {
   static final String companyBseCa = '/api/bse_companyca/';
   static final String companyNseCa = '/api/nse_companyca/';
   static final String companyMcCa = '/api/mc_companyca/';
+  static final String predictedCa = '/api/predicted_ca';
   static final String downloadBsePdf = '/download/bse_pdf';
   static final String downloadBseCsv = '/download/bse_csv';
   static final String downloadNsePdf = '/download/nse_pdf';

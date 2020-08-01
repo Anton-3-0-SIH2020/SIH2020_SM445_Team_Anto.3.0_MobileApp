@@ -1,10 +1,12 @@
 import 'package:anton_sih_app/models/mc_ca.dart';
 import 'package:anton_sih_app/models/nse_ca.dart';
+import 'package:anton_sih_app/models/predicted_ca.dart';
 import 'package:anton_sih_app/screens/companies_page.dart';
 import 'package:anton_sih_app/screens/companycalist.dart';
 import 'package:anton_sih_app/screens/details_pages/bsedetailpage.dart';
 import 'package:anton_sih_app/screens/details_pages/mcdetailpage.dart';
 import 'package:anton_sih_app/screens/details_pages/nsedetailpage.dart';
+import 'package:anton_sih_app/screens/details_pages/predicteddetailpage.dart';
 import 'package:flutter/material.dart';
 
 import '../../screens/landingpage.dart';
@@ -48,6 +50,15 @@ class RouteGenerator {
         if (args is McCa) {
           return MaterialPageRoute(
             builder: (_) => McDetailsPage(
+              data: args,
+            ),
+          );
+        }
+        return _errorRoute();
+      case '/predicteddetailpage':
+        if (args is PredictedCaModel) {
+          return MaterialPageRoute(
+            builder: (_) => PredictedDetailsPage(
               data: args,
             ),
           );

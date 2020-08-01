@@ -1,10 +1,12 @@
 import 'package:anton_sih_app/core/api/download_file.dart';
 import 'package:anton_sih_app/core/api/endpoints.dart';
 import 'package:anton_sih_app/core/api/latest_corporate_action.dart';
+import 'package:anton_sih_app/core/api/predicted_corporate_action.dart';
 import 'package:anton_sih_app/core/utilities/debouncer.dart';
 import 'package:anton_sih_app/models/bse_ca.dart';
 import 'package:anton_sih_app/models/mc_ca.dart';
 import 'package:anton_sih_app/models/nse_ca.dart';
+import 'package:anton_sih_app/models/predicted_ca.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -27,6 +29,8 @@ class _HomeTabState extends State<HomeTab> {
   BseLatestCa bseLatestCa;
   NseLatestCa nseLatestCa;
   McLatestCa mcLatestCa;
+  PredictedCa predictedCa;
+
   DownloadFiles downloadFilesCall;
 
   //BSE LISTS
@@ -40,6 +44,10 @@ class _HomeTabState extends State<HomeTab> {
   //MC LISTS
   List<McCa> mcFilterList;
   Future<List<McCa>> mcList;
+
+  //Predicted List
+  List<PredictedCaModel> predictedFilterList;
+  Future<List<PredictedCaModel>> predictedList;
 
   String searchText;
   String exchangeType;
@@ -66,6 +74,11 @@ class _HomeTabState extends State<HomeTab> {
     mcList = mcLatestCa.getLatestCa();
     mcFilterList = [];
 
+    //Predicted Ca
+    predictedCa = new PredictedCa();
+    predictedList = predictedCa.getPredictedCa();
+    predictedFilterList = [];
+
     initializer();
     super.initState();
   }
@@ -74,6 +87,7 @@ class _HomeTabState extends State<HomeTab> {
     bseFilterList = await bseList;
     nseFilterList = await nseList;
     mcFilterList = await mcList;
+    predictedFilterList = await predictedList;
   }
 
   @override
@@ -308,7 +322,7 @@ class _HomeTabState extends State<HomeTab> {
                             exchangeType = newValue;
                           });
                         },
-                        items: <String>['BSE', 'NSE', 'MC']
+                        items: <String>['BSE', 'NSE', 'MC', 'PRED']
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -350,6 +364,8 @@ class _HomeTabState extends State<HomeTab> {
                           List<BseCa> bseOriginalList = await bseList;
                           List<NseCa> nseOriginalList = await nseList;
                           List<McCa> mcOriginalList = await mcList;
+                          List<PredictedCaModel> predictedOriginalList =
+                              await predictedList;
 
                           searchText = value;
                           _debouncer.run(() {
@@ -375,10 +391,21 @@ class _HomeTabState extends State<HomeTab> {
                                             .contains(value.toLowerCase())))
                                     .toList();
                               });
-                            } else {
+                            } else if (exchangeType == 'MC') {
                               setState(() {
                                 mcFilterList = mcOriginalList
                                     .where((f) => (f.companyName
+                                            .toLowerCase()
+                                            .contains(value.toLowerCase()) ||
+                                        f.purpose
+                                            .toLowerCase()
+                                            .contains(value.toLowerCase())))
+                                    .toList();
+                              });
+                            } else {
+                              setState(() {
+                                predictedFilterList = predictedOriginalList
+                                    .where((f) => (f.securityName
                                             .toLowerCase()
                                             .contains(value.toLowerCase()) ||
                                         f.purpose
@@ -570,77 +597,158 @@ class _HomeTabState extends State<HomeTab> {
                             },
                           ),
                         )
-                      : Expanded(
-                          child: FutureBuilder(
-                            future: mcList,
-                            builder:
-                                (BuildContext context, AsyncSnapshot snapshot) {
-                              if (snapshot.data == null) {
-                                return Container(
-                                  child: Center(
-                                    child: SpinKitDoubleBounce(
-                                      color: Color(0xff3F72F9),
-                                      size: 60.0,
-                                    ),
-                                  ),
-                                );
-                              }
-                              return ListView.builder(
-                                padding: EdgeInsets.only(top: 10),
-                                shrinkWrap: true,
-                                itemCount: mcFilterList.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Container(
-                                    padding: EdgeInsets.symmetric(vertical: 10),
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 8),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                      color: Colors.white,
-                                    ),
-                                    child: ListTile(
-                                      onTap: () {
-                                        // dialogs.information(context, snapshot.data[index]);
-                                        Navigator.of(context).pushNamed(
-                                            '/mcdetailspage',
-                                            arguments: mcFilterList[index]);
-                                      },
-                                      leading: Container(
-                                        height: 0.05 * screenHeight,
-                                        width: 0.1 * screenWidth,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  'images/bonds.png'),
-                                              fit: BoxFit.cover),
+                      : (exchangeType == 'MC')
+                          ? Expanded(
+                              child: FutureBuilder(
+                                future: mcList,
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  if (snapshot.data == null) {
+                                    return Container(
+                                      child: Center(
+                                        child: SpinKitDoubleBounce(
+                                          color: Color(0xff3F72F9),
+                                          size: 60.0,
                                         ),
                                       ),
-                                      title: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            mcFilterList[index].companyName,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline2,
+                                    );
+                                  }
+                                  return ListView.builder(
+                                    padding: EdgeInsets.only(top: 10),
+                                    shrinkWrap: true,
+                                    itemCount: mcFilterList.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Container(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 10),
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 15, vertical: 8),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          color: Colors.white,
+                                        ),
+                                        child: ListTile(
+                                          onTap: () {
+                                            // dialogs.information(context, snapshot.data[index]);
+                                            Navigator.of(context).pushNamed(
+                                                '/mcdetailspage',
+                                                arguments: mcFilterList[index]);
+                                          },
+                                          leading: Container(
+                                            height: 0.05 * screenHeight,
+                                            width: 0.1 * screenWidth,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      'images/bonds.png'),
+                                                  fit: BoxFit.cover),
+                                            ),
                                           ),
-                                          Text(
-                                              "Ex-Date: ${mcFilterList[index].exDate}"),
-                                          Text(
-                                              "Purpose: ${mcFilterList[index].purpose}"),
-                                          SizedBox(
-                                            height: 2,
+                                          title: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                mcFilterList[index].companyName,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline2,
+                                              ),
+                                              Text(
+                                                  "Ex-Date: ${mcFilterList[index].exDate}"),
+                                              Text(
+                                                  "Purpose: ${mcFilterList[index].purpose}"),
+                                              SizedBox(
+                                                height: 2,
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                    ),
+                                        ),
+                                      );
+                                    },
                                   );
                                 },
-                              );
-                            },
-                          ),
-                        )
+                              ),
+                            )
+                          : Expanded(
+                              child: FutureBuilder(
+                                future: predictedList,
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  if (snapshot.data == null) {
+                                    return Container(
+                                      child: Center(
+                                        child: SpinKitDoubleBounce(
+                                          color: Color(0xff3F72F9),
+                                          size: 60.0,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  return ListView.builder(
+                                    padding: EdgeInsets.only(top: 10),
+                                    shrinkWrap: true,
+                                    itemCount: predictedFilterList.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Container(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 10),
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 15, vertical: 8),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          color: Colors.white,
+                                        ),
+                                        child: ListTile(
+                                          onTap: () {
+                                            // dialogs.information(context, snapshot.data[index]);
+                                            //TODO:Create detail page for the predictedData
+                                            Navigator.of(context).pushNamed(
+                                                '/predicteddetailpage',
+                                                arguments:
+                                                    predictedFilterList[index]);
+                                          },
+                                          leading: Container(
+                                            height: 0.05 * screenHeight,
+                                            width: 0.1 * screenWidth,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      'images/bonds.png'),
+                                                  fit: BoxFit.cover),
+                                            ),
+                                          ),
+                                          title: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                predictedFilterList[index]
+                                                    .securityName,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline2,
+                                              ),
+                                              Text(
+                                                  "Date: ${predictedFilterList[index].date}"),
+                                              Text(
+                                                  "Purpose: ${predictedFilterList[index].purpose}"),
+                                              SizedBox(
+                                                height: 2,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                            )
             ],
           ),
           (downloadProgress != 0)
