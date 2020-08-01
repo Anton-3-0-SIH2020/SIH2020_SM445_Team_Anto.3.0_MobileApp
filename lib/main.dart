@@ -21,9 +21,9 @@ class MyApp extends StatelessWidget {
         if (!currentFocus.hasPrimaryFocus) {
           currentFocus.unfocus();
         }
-      }, //Wrapping MaterialApp in GestureDetector here ensures that keyboard closes every time user clicks out of a TextFormField
+      },
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: true,
         initialRoute: '/',
         onGenerateRoute: RouteGenerator.generateRoute,
         theme: ThemeData.light().copyWith(
