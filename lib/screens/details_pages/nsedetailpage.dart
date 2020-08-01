@@ -75,9 +75,9 @@ class _NseDetailsPageState extends State<NseDetailsPage> {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: Color.fromRGBO(168, 192, 255, 0.8),
-                      spreadRadius: 5,
-                      blurRadius: 10,
+                      color: Color.fromRGBO(168, 192, 255, 0.4),
+                      spreadRadius: 2,
+                      blurRadius: 5,
                       offset: Offset(0, 2), // changes position of shadow
                     ),
                   ],
@@ -86,29 +86,31 @@ class _NseDetailsPageState extends State<NseDetailsPage> {
                 ),
                 child: Column(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: IconButton(
-                          icon: (_isFavorited
-                              ? Icon(
-                                  Icons.star,
-                                  size: 30,
-                                )
-                              : Icon(
-                                  Icons.star_border,
-                                  size: 30,
-                                )),
-                          color: Color(0xFFF4C2C2),
-                          onPressed: _toggleFavorite,
+//                    Padding(
+//                      padding: const EdgeInsets.all(10.0),
+//                      child: Align(
+//                        alignment: Alignment.topRight,
+//                        child: IconButton(
+//                          icon: (_isFavorited
+//                              ? Icon(
+//                                  Icons.star,
+//                                  size: 30,
+//                                )
+//                              : Icon(
+//                                  Icons.star_border,
+//                                  size: 30,
+//                                )),
+//                          color: Color(0xFFF4C2C2),
+//                          onPressed: _toggleFavorite,
+//                        ),
+//                      ),
+//                    ),
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                          widget.data.symbol,
+                          style: Theme.of(context).textTheme.caption,
                         ),
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        widget.data.symbol,
-                        style: Theme.of(context).textTheme.caption,
                       ),
                     ),
                   ],

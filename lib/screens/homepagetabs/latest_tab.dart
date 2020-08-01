@@ -324,7 +324,7 @@ class _HomeTabState extends State<HomeTab> {
                     flex: 8,
                     child: Container(
                       margin: EdgeInsets.only(
-                          left: 15, right: 5, bottom: 15, top: 20),
+                          left: 15, right: 15, bottom: 15, top: 20),
                       padding: EdgeInsets.only(
                         left: 21.5,
                         right: 8,
@@ -411,16 +411,16 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      margin: EdgeInsets.only(right: 10),
-                      child: IconButton(
-                        icon: Icon(Icons.filter_list),
-                        onPressed: () {},
-                      ),
-                    ),
-                  )
+//                  Expanded(
+//                    flex: 2,
+//                    child: Container(
+//                      margin: EdgeInsets.only(right: 10),
+//                      child: IconButton(
+//                        icon: Icon(Icons.filter_list),
+//                        onPressed: () {},
+//                      ),
+//                    ),
+//                  )
                 ],
               ),
               (exchangeType == 'BSE')
