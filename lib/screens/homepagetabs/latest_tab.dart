@@ -76,33 +76,6 @@ class _HomeTabState extends State<HomeTab> {
     mcFilterList = await mcList;
   }
 
-//  Future<void> downloadFile() async {
-//    var status = await Permission.storage.status;
-//    if (status.isUndetermined) {
-//      print('----Asking For Storage Permissions----');
-//    }
-//    if (await Permission.location.isRestricted) {
-//      print('----Access Restricted----');
-//    }
-//
-//    if (await Permission.storage.request().isGranted) {
-//      print('Downloading...');
-//      Dio dio = Dio();
-//      String fileUrl = Endpoints.baseUrl + Endpoints.downloadBsePdf;
-//      try {
-//        var dir = await getApplicationDocumentsDirectory();
-//        await dio.download(fileUrl, "${'/sdcard/downloads'}/bse_pdf.pdf",
-//            onReceiveProgress: (rec, total) {
-//          print("Rec: $rec , Total: $total");
-//          print(dir.path);
-//        });
-//      } catch (e) {
-//        print(e);
-//      }
-//    }
-//    print("Download completed");
-//  }
-
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
@@ -351,7 +324,7 @@ class _HomeTabState extends State<HomeTab> {
                     flex: 8,
                     child: Container(
                       margin: EdgeInsets.only(
-                          left: 15, right: 5, bottom: 15, top: 20),
+                          left: 15, right: 15, bottom: 15, top: 20),
                       padding: EdgeInsets.only(
                         left: 21.5,
                         right: 8,
@@ -438,16 +411,16 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      margin: EdgeInsets.only(right: 10),
-                      child: IconButton(
-                        icon: Icon(Icons.filter_list),
-                        onPressed: () {},
-                      ),
-                    ),
-                  )
+//                  Expanded(
+//                    flex: 2,
+//                    child: Container(
+//                      margin: EdgeInsets.only(right: 10),
+//                      child: IconButton(
+//                        icon: Icon(Icons.filter_list),
+//                        onPressed: () {},
+//                      ),
+//                    ),
+//                  )
                 ],
               ),
               (exchangeType == 'BSE')

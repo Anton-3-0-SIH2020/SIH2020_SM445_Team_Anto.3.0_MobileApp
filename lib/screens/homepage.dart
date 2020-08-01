@@ -1,10 +1,10 @@
 import 'package:anton_sih_app/core/api/latest_corporate_action.dart';
 import 'package:anton_sih_app/core/db_helper/external_db_helper.dart';
 import 'package:anton_sih_app/models/bse_ca.dart';
-import 'package:anton_sih_app/screens/homepagetabs/favourites.dart';
+import 'package:anton_sih_app/screens/homepagetabs/historic_tab.dart';
 import 'package:flutter/material.dart';
-import 'package:anton_sih_app/screens/homepagetabs/hometab.dart';
-import '../screens/homepagetabs/profilepage.dart';
+import 'package:anton_sih_app/screens/homepagetabs/latest_tab.dart';
+import '../screens/homepagetabs/favourites_tab.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -60,25 +60,25 @@ class _HomePageState extends State<HomePage> {
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.watch_later),
             title: Text(
-              'Home',
+              'Latest',
               style: Theme.of(context).textTheme.subtitle2,
             ),
             backgroundColor: Color(0xFF4035EF),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star),
+            icon: Icon(Icons.storage),
             title: Text(
-              'Favourites',
+              'Historic',
               style: Theme.of(context).textTheme.subtitle2,
             ),
             backgroundColor: Color(0xFF4035EF),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.favorite),
             title: Text(
-              'Profile',
+              'Favourite',
               style: Theme.of(context).textTheme.subtitle2,
             ),
             backgroundColor: Color(0xFF4035EF),

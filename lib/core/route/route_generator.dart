@@ -1,5 +1,6 @@
 import 'package:anton_sih_app/models/mc_ca.dart';
 import 'package:anton_sih_app/models/nse_ca.dart';
+import 'package:anton_sih_app/screens/companies_page.dart';
 import 'package:anton_sih_app/screens/companycalist.dart';
 import 'package:anton_sih_app/screens/details_pages/bsedetailpage.dart';
 import 'package:anton_sih_app/screens/details_pages/mcdetailpage.dart';
@@ -52,6 +53,8 @@ class RouteGenerator {
           );
         }
         return _errorRoute();
+      case '/companiespage':
+        return MaterialPageRoute(builder: (_) => CompaniesPage());
       case '/companycalist':
         return MaterialPageRoute(
           builder: (_) => CompanyCaList(

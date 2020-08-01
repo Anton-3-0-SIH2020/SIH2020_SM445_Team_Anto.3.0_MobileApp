@@ -15,39 +15,47 @@ class SignIn extends StatelessWidget {
               child: Stack(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
-                    child: Text('Hello',
-                        style: TextStyle(
-                            fontSize: 80.0, fontWeight: FontWeight.bold)),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(16.0, 175.0, 0.0, 0.0),
-                    child: Text('There',
-                        style: TextStyle(
-                            fontSize: 80.0, fontWeight: FontWeight.bold)),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(220.0, 175.0, 0.0, 0.0),
+                    padding: EdgeInsets.fromLTRB(40.0, 110.0, 0.0, 0.0),
                     child: Text(
-                      ' .',
+                      'Hello',
                       style: TextStyle(
-                        fontSize: 80.0,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff3F72F9),
-                      ),
+                          fontSize: 60.0,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.black54),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(40.0, 175.0, 0.0, 0.0),
+                    child: Text(
+                      'There',
+                      style: TextStyle(
+                          fontSize: 60.0,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.black54),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(220.0, 185.0, 0.0, 0.0),
+                    child: Container(
+                      margin: EdgeInsets.only(top: 30, left: 2),
+                      height: 17,
+                      width: 17,
+                      decoration: BoxDecoration(
+                          color: Color(0xff3F72F9),
+                          borderRadius: BorderRadius.circular(60)),
                     ),
                   )
                 ],
               ),
             ),
             Container(
-                padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
+                padding: EdgeInsets.only(top: 50.0, left: 40.0, right: 40.0),
                 child: Column(
                   children: <Widget>[
                     TextField(
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.mail),
-                        labelText: 'EMAIL',
+                        labelText: 'Email',
                         labelStyle: TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.bold,
@@ -64,7 +72,7 @@ class SignIn extends StatelessWidget {
                       decoration: InputDecoration(
                           prefixIcon: Icon(Icons.lock),
                           suffixIcon: Icon(Icons.remove_red_eye),
-                          labelText: 'PASSWORD',
+                          labelText: 'Password',
                           labelStyle: TextStyle(
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.bold,
@@ -80,40 +88,42 @@ class SignIn extends StatelessWidget {
                       padding: EdgeInsets.only(top: 15.0, left: 20.0),
                       child: InkWell(
                         child: Text(
-                          'Forgot Password',
+                          'Forgot Password?',
                           style: TextStyle(
-                              color: Color(0xff3F72F9),
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Montserrat',
-                              decoration: TextDecoration.underline),
+                            fontSize: 15,
+                            color: Colors.blueGrey,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Montserrat',
+                          ),
                         ),
                       ),
                     ),
                     SizedBox(height: 40.0),
                     Container(
-                      height: 40.0,
-                      child: Material(
-                        borderRadius: BorderRadius.circular(20.0),
-                        shadowColor: Color(0xff3F72F9),
+                      padding: EdgeInsets.symmetric(vertical: 25.0),
+                      width: double.infinity,
+                      child: RaisedButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/homepage');
+                        },
                         color: Color(0xff3F72F9),
-                        elevation: 7.0,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pushNamed('/homepage');
-                          },
-                          child: Center(
-                            child: Text(
-                              'LOGIN',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat'),
-                            ),
+                        padding: EdgeInsets.all(15.0),
+                        elevation: 5.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Text(
+                          'LOGIN',
+                          style: TextStyle(
+                            color: Colors.white,
+                            letterSpacing: 1.5,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'OpenSans',
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20.0),
                   ],
                 )),
             SizedBox(height: 15.0),
@@ -122,7 +132,11 @@ class SignIn extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'New to Anton ?',
-                  style: TextStyle(fontFamily: 'Montserrat'),
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black87,
+                    fontFamily: 'Montserrat',
+                  ),
                 ),
                 SizedBox(width: 5.0),
                 InkWell(
@@ -132,10 +146,11 @@ class SignIn extends StatelessWidget {
                   child: Text(
                     'Register',
                     style: TextStyle(
-                        color: Color(0xff3F72F9),
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline),
+                      fontSize: 15,
+                      color: Colors.blueGrey,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat',
+                    ),
                   ),
                 )
               ],

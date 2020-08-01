@@ -4,13 +4,13 @@ class Company {
   String exchange;
   String name;
   String code;
-  Company({
-    @required this.exchange,
-    @required this.name,
-    @required this.code,
-  });
+  int isFavorite;
+  Company(
+      {@required this.exchange,
+      @required this.name,
+      @required this.code,
+      @required this.isFavorite});
 }
-
 //{
 //  "exchange": "BSE",
 //  "company": "BOMDYEING",
